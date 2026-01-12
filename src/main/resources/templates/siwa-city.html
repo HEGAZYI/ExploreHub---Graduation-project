@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Siwa City Guide — ExploreHub</title>
-    <meta name="description" content="Siwa city guide: museums, historic mosques, Old Siwa, oasis views, food & cafes." />
+    <title>Siwa Oasis — Deserts & Oases</title>
+    <meta name="description" content="Siwa Oasis: salt lakes, Oracle of Amun, eco-lodges, and Berber culture in Egypt's Western Desert." />
+
+    <!-- Use Thymeleaf for asset resolution -->
     <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
 </head>
 <body>
 <header class="header">
     <div class="container nav">
+        <!-- Dynamic links with Thymeleaf -->
         <a th:href="@{/}" class="brand">
-            <span class="brand__logo"></span>
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" ></span>
             <span>ExploreHub</span>
         </a>
         <nav class="nav__links">
-            <a th:href="@{/cities}">Back to Cities</a>
+            <a th:href="@{/deserts}">Back to Deserts &amp; Oases</a>
         </nav>
         <div class="nav__actions">
             <button class="button button--ghost menu-toggle">Menu</button>
@@ -29,16 +32,11 @@
         <div class="hero__surface"></div>
         <div class="container hero__content">
             <div>
-                <span class="eyebrow">City</span>
-                <h1>Siwa</h1>
-                <p class="lead">Desert oasis of palm groves, salt lakes, and mud-brick architecture.</p>
-                <div class="nav__actions" style="flex-wrap:wrap; gap:8px;">
-                    <span class="chip">Museums</span>
-                    <span class="chip">Historic Mosques</span>
-                    <span class="chip">Old Siwa</span>
-                    <span class="chip">Nile Views</span>
-                    <span class="chip">Food &amp; Cafes</span>
-                </div>
+                <span class="eyebrow">Highlight — Deserts &amp; Oases</span>
+                <h1>Siwa Oasis</h1>
+                <p class="lead">
+                    Crystal salt pools, mud-brick architecture, and the ancient Oracle temple.
+                </p>
             </div>
             <div class="hero__media"
                  role="img"
@@ -50,46 +48,102 @@
 
     <section class="section">
         <div class="container">
-            <h2 class="section__title">Museums</h2>
+            <h2 class="section__title">Overview</h2>
+            <p>
+                Near the Libyan border, Siwa blends Berber heritage with eco-friendly retreats,
+                palm groves, and mirror-like salt lakes.
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Top Experiences</h2>
             <ul>
-                <li>Siwa House Museum: local culture and crafts</li>
+                <li>Float in salt pools and soak in hot springs</li>
+                <li>Explore the Oracle of Amun at Aghurmi</li>
+                <li>Dune drives into the Great Sand Sea</li>
             </ul>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
-            <h2 class="section__title">Historic Mosques</h2>
-            <ul>
-                <li>Shali Fortress mosque</li>
-            </ul>
+            <h2 class="section__title">Gallery</h2>
+            <div class="grid grid--cards">
+
+                <div class="card">
+                    <div class="card__media"
+                         role="img"
+                         aria-label="Salt pool"
+                         style="background:url('/images/2022_6_20_20_1_17_182.jpeg') center/cover no-repeat;">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__media"
+                         role="img"
+                         aria-label="Palm groves"
+                         style="background:url('/images/2022_7_30_21_27_10_726.png') center/cover no-repeat;">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card__media"
+                         role="img"
+                         aria-label="Aghurmi"
+                         style="background:url('/images/2022_7_23_22_4_39_279.jpeg') center/cover no-repeat;">
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
-            <h2 class="section__title">Old Siwa</h2>
-            <ul>
-                <li>Shali ruins and palm-lined lanes</li>
-                <li>Oracle Temple at Aghurmi (nearby)</li>
-            </ul>
+            <h2 class="section__title">Articles &amp; Guides</h2>
+            <div class="grid grid--cards">
+
+                <article class="card">
+                    <div class="card">
+                        <div class="card__media"
+                             role="img"
+                             aria-label="Salt pool"
+                             style="background:url('/images/2022_6_20_20_1_17_182.jpeg') center/cover no-repeat;">
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <h3 class="card__title">Eco-Stay in Siwa</h3>
+                        <div class="card__meta">Mud-brick lodges, salt lamps, and stargazing.</div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card">
+                        <div class="card__media"
+                             role="img"
+                             aria-label="Salt pool"
+                             style="background:url('/images/2022_6_20_20_1_17_182.jpeg') center/cover no-repeat;">
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <h3 class="card__title">Great Sand Sea Safari</h3>
+                        <div class="card__meta">What to pack and routes for dune adventures.</div>
+                    </div>
+                </article>
+
+            </div>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
-            <h2 class="section__title">Nile Views</h2>
+            <h2 class="section__title">Practical Info</h2>
             <ul>
-                <li>Oasis lakes and sunset dunes</li>
-            </ul>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <h2 class="section__title">Food &amp; Cafes</h2>
-            <ul>
-                <li>Eco-cafes with local dates and olives</li>
+                <li>Best Oct–Apr; summers are very hot</li>
+                <li>Cash is king; limited ATMs</li>
+                <li>Travel with licensed guides for desert drives</li>
             </ul>
         </div>
     </section>
@@ -101,6 +155,7 @@
     </div>
 </footer>
 
+<!-- Thymeleaf script path -->
 <script th:src="@{/assets/js/main.js}"></script>
 </body>
 </html>
