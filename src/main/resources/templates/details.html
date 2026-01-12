@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artifact Details - Museum</title>
+    <!--css file for styles-->
+    <link rel="stylesheet" th:href="@{/assets/css/mstyles.css}">
+    <!--render all elements normally-->
+    <link rel="stylesheet" th:href="@{/assets/css/normalize.css}">
+    <!--all files for css-->
+    <link rel="stylesheet" th:href="@{/assets/css/all.css}">
+    <!--font awosome library for css-->
+    <link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url("/images/egyptBg.jpg");
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: var(--card-background);
+        }
+
+        .detail-img {
+            width: 100%;
+            height: 500px;
+            object-fit: fill;
+        }
+
+        .content {
+            padding: 40px;
+            height: 500px;
+        }
+
+        h1 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            background-color: var(--border-color);
+            border-radius: 10px;
+        }
+
+        .info {
+            background: var(--section-background);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info p {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        .back-home {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 55px;
+            height: 55px;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            font-size: 28px;
+            text-decoration: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, background 0.3s ease;
+            z-index: 9999;
+        }
+
+        .back-home:hover {
+            transform: scale(1.1);
+            background: #11037b;
+        }
+
+        @media (max-width: 991px) {
+            .detail-img {
+                height: 300px;
+            }
+
+            .content {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<!-- Header -->
+<div class="header">
+    <div class="container">
+        <img class="logo" th:src="@{/images/greatmuseum.png}" alt="The Egyptian Museum">
+        <!-- Desktop Links -->
+        <div class="desktop-links">
+            <a th:href="@{/grandMuseum}" style="text-decoration:none;">Home</a>
+            <a th:href="@{/photos}" style="text-decoration:none;">Photos</a>
+            <a href="#groups">Archaeological Groups</a>
+            <a href="#about">About</a>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="theme-icon" id="themeIcon">🌙</span>
+        </button>
+
+        <!-- Hamburger Icon -->
+        <div class="hamburger" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Mobile Menu -->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a th:href="@{/grandMuseum}" style="text-decoration:none;">Home</a></li>
+            <li><a th:href="@{/photos}" style="text-decoration:none;">Photos</a></li>
+            <li><a href="#groups">Archaeological Groups</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+
+    </div>
+</div>
+
+<div style="padding-top: 80px;"></div>
+
+<div class="container">
+    <img id="detail-img" class="detail-img" src="" alt="">
+    <div class="content">
+        <h1 id="title"></h1>
+        <div class="info">
+            <p><strong>Description:</strong> <span id="description"></span></p>
+            <p><strong>Period:</strong> <span id="period"></span></p>
+            <p><strong>Origin:</strong> <span id="origin"></span></p>
+        </div>
+    </div>
+</div>
+
+<a th:href="@{/grandMuseum}" class="back-home" title="Back to Home">
+    🏠
+</a>
+
+<script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+        if (theme === 'dark') {
+            themeIcon.textContent = '☀️';
+        } else {
+            themeIcon.textContent = '🌙';
+        }
+    }
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('show');
+    });
+
+    // Same data as in index.html (you could also load from a separate JSON file)
+    const artifacts = [
+        null, // index 0 not used
+        { id: 1, title: "Khufu's Boats Museum", shortDesc: "The funerary complex of the Great Pyramid of King Khufu at Giza...", image: "/images/boat.jpg", description: "The funerary complex of the Great Pyramid of King Khufu at Giza yielded five boat pits, of which three empty pits were discovered outside the mortuary temple of the pyramid and to the north of its causeway.In 1954, while clearing the sand and debris that had accumulated opposite the southern side of the pyramid, two sealed pits were discovered, inside which were found the dismantled wood of King Khufu's boats.The first boat was discovered buried in a pit under limestone blocks.It took more than 10 years to reassemble the first boat, which is a huge wooden structure with a total length of 42.32 meters.Several plans to relocate the boat were proposed since the 1970s, but concerns over the risks of dismantling it prevented execution.In 2019, a decision was made to transport the entire boat intact to the Grand Egyptian Museum, following extensive engineering and archaeological studies to ensure its safety during the move.Preparations included reinforcing the transport platform, constructing a large protective steel structure, performing precise conservation and sterilization work, and running simulation tests using a specialized smart vehicle", period: "New Kingdom, 18th Dynasty (c. 1330 BCE)", origin: "Thebes, Egypt" },
+        { id: 2, title: "Statuette of a Falcon", shortDesc: "This gilt bronze votive statuette of a hawk was discovered in...", image: "/images/falcon.jpg", description: "This gilt bronze votive statuette of a hawk was discovered in 1893 at Sais(Sa- al - Hagar) in the western Delta and is dated to Dynasty 26. The statuette was made using the lost - wax technique in which a wax model was enclosed in clay and allowed to dry.The wax was then melted before the molten metal was poured into the resulting clay mould.Gold was used here to highlight the falcon’s head, plumage and jewellery.The statuette shows the avian form of god Horus, who was associated with kingship, wearing a crown(now partly broken) and a broad gilded collar ending in a solar - heart amulet.This amulet was probably used by ancient Egyptian kings as an attribute of god Horus, therefore, indicating the divine status of the king.The solar disk above the heart identified the king’s heart with the sun and may have signalled his ability to maintain maat(justice) in the same way the sun illuminated the universe.Such votive statuettes were donated to the temple to honour its deities.The gilded dedicatory text on the base of the statuette names a certain Imhotep, son of Padineith.By naming the dedicant in the inscription, he could magically participate in the daily temple rituals that common people were not allowed to attend", period: "Hellenistic Period (c. 200 BCE)", origin: "Athens, Greece" },
+        { id: 3, title: "The Golden Burial Mask of Tutankhamun", shortDesc: "This mask of solid gold is one of the most famous objects in the world...", image: "/images/mask.jpg", description: "This mask of solid gold is one of the most famous objects in the world. It was found placed over the head and shoulders of Tutankhamun’s mummified remains.  The king is made to look like the god Osiris, ruler of the underworld, and the sun god Re whose body was made of gold and hair of lapis lazuli. At the same time, this is a perfect version of Tutankhamun’s face, recognisable from his coffins, statues and temple reliefs. An inscription on the back provides further protection by identifying parts of the mask with different gods ‘Your forehead is Anubis, your right eye is the night boat (of Re), your left eye is the day boat, your eyebrows are in the company of nine gods’.", period: "Qin Dynasty (c. 210 BCE)", origin: "Xi'an, China" },
+        { id: 4, title: "Golden Throne", shortDesc: "This beautifully decorated armchair was found wrapped in linen in the Antechamber...", image: "/images/throne.jpg", description: "This beautifully decorated armchair was found wrapped in linen in the Antechamber. It is made of wood covered with sheets of gold that are both chased (pattern pressed into the metal) and inlaid with glass, faience and semi-precious stones. Side panels are formed from winged uraeus snakes holding the king’s cartouche. The scene on the front of backrest shows the king and queen under a floral canopy pierced by the rays of the Aten sun disk. Although adult-sized, this armchair must date from the beginning of Tutankhamun’s reign.", period: "Classic Period (c. 600 CE)", origin: "Palenque, Mexico" },
+        { id: 5, title: "Grand Hall", shortDesc: "Unrivaled in the ancient world, colossal statues are among the most...", image: "/images/hall.jpg", description: "Unrivaled in the ancient world, colossal statues are among the most distinctive phenomena in ancient Egypt. Through the quarrying and fashioning of these gigantic monoliths, the ancient Egyptians showed veneration to their divinised rulers. Royal colossi possibly also played the role of active intermediaries between mankind and the gods. Stand at the feet of awe-inspiring royal colossi in the Grand Hall, a dramatic space where visitors are first welcomed before they begin their tour to the Grand Egyptian Museum.", period: "Roman Empire (c. 100 BCE)", origin: "Pompeii, Italy" },
+        { id: 6, title: "This painted wooden statue belongs to Mitri who held many important titles  during Dynasty 5...", shortDesc: "Carved dragon head from a Norse ship.", image: "/images/StatueofMitri.jpeg", description: "This painted wooden statue belongs to Mitri who held many important titles  during Dynasty 5. The statue shows him sitting in the traditional pose of an Egyptian scribe with his legs crossed and a roll of papyrus partly unrolled on his lap. He wears a short kilt and a broad collar. His thoughtful face is framed by short hair and he has magnetic eyes made with inlaid stone. Mitri’s name and titles are written on the statue base. Some of his titles include 'Nome Administrator', 'Priest of the goddess Maat' and 'Overseer of Scribes'.", period: "Viking Age (c. 900 CE)", origin: "Oslo, Norway" }
+    ];
+
+    // Get the id from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const artifactId = parseInt(urlParams.get('id'));
+
+    if (artifactId && artifacts[artifactId]) {
+        const artifact = artifacts[artifactId];
+        document.getElementById('title').textContent = artifact.title;
+        document.getElementById('detail-img').src = artifact.image;
+        document.getElementById('description').textContent = artifact.description;
+        document.getElementById('period').textContent = artifact.period;
+        document.getElementById('origin').textContent = artifact.origin;
+        document.title = artifact.title + " - Museum";
+    } else {
+        document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px;'>Artifact not found</h1><p style='text-align:center;'><a href='index.html'>← Back to Gallery</a></p>";
+    }
+</script>
+
+</body>
+
+</html>

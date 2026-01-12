@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Archaeological Sites — ExploreHub</title>
+    <meta name="description" content="Discover Egypt's archaeological sites: Pyramids, temples, tombs, and ancient monuments." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        .archaeology-hero {
+            background: linear-gradient(rgba(13,71,161,0.9), rgba(25,118,210,0.7)), url('/images/pyramids-sunset.jpg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(124, 100, 100);
+            padding: 120px 0;
+            text-align: center;
+        }
+        .archaeology-description {
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        .site-card {
+            background: linear-gradient(145deg, #1e3a8a 0%, #2196f3 100%);
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+        .site-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+        .site-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .era-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+        .site-content {
+            padding: 30px;
+        }
+        .site-title {
+            font-size: 1.6em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+        .site-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .site-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .highlight-tag {
+            background: #1e3a8a;
+            color: #90caf9;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 5px;
+        }
+        .timeline-section {
+            background: #f8f9fa;
+            padding: 60px 0;
+        }
+        .archaeology-timeline {
+            position: relative;
+        }
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .timeline-era {
+            flex: 0 0 150px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #8b4513;
+        }
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #0d47a1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: rgb(78, 66, 66);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        .archaeology-stats {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+        .discovery-box {
+            background: linear-gradient(145deg, #1e3a8a 0%, #42a5f5 100%);
+            border-left: 4px solid #0d47a1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(13,71,161,0.2);
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" alt="ExploreHub Logo"></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/deserts}">Deserts</a>
+            <a th:href="@{/cities}">Cities</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="archaeology-hero">
+    <div class="container">
+        <h1>Egypt's Archaeological Sites</h1>
+        <p class="lead">Journey Through 5,000 Years of Ancient Wonders</p>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="section">
+    <div class="container">
+        <div class="archaeology-description">
+            <h2>Ancient Egypt's Archaeological Heritage</h2>
+            <p>Egypt's archaeological sites represent some of humanity's most ancient and impressive achievements. From the Great Pyramids of Giza to the hidden tombs of the Valley of the Kings, these monuments showcase the extraordinary engineering, artistic, and spiritual sophistication of ancient Egyptian civilization. Each site tells a story of pharaonic power, religious devotion, and eternal quest for immortality.</p>
+            
+            <div class="archaeology-stats">
+                <h3>Archaeological Statistics</h3>
+                <div class="site-highlights">
+                    <div class="highlight-tag">5,000+ Years</div>
+                    <div class="highlight-tag">100+ Pyramids</div>
+                    <div class="highlight-tag">50+ Royal Tombs</div>
+                    <div class="highlight-tag">200+ Temples</div>
+                    <div class="highlight-tag">10 UNESCO Sites</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Major Archaeological Sites -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Major Archaeological Sites</h2>
+        <div class="row">
+            
+            <!-- Giza Pyramids -->
+            <div class="col-md-6">
+                <div class="site-card">
+                    <div class="site-image" th:style="'background:url(/images/giza-pyramids.jpg) center/cover'">
+                        <div class="era-badge">Old Kingdom</div>
+                    </div>
+                    <div class="site-content">
+                        <h3 class="site-title">Giza Pyramids Complex</h3>
+                        <p class="site-description">The last surviving Wonder of the Ancient World, built during the 4th Dynasty as eternal resting places for pharaohs. The complex includes the Great Pyramid of Khufu, the Pyramid of Khafre, the Pyramid of Menkaure, and the Great Sphinx. These architectural marvels have stood for over 4,500 years.</p>
+                        <div class="site-highlights">
+                            <span class="highlight-tag">Great Pyramid</span>
+                            <span class="highlight-tag">Great Sphinx</span>
+                            <span class="highlight-tag">Solar Boat Museum</span>
+                            <span class="highlight-tag">Sound & Light Show</span>
+                        </div>
+                        <a th:href="@{/giza}" class="button">Explore Giza</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Karnak Temple -->
+            <div class="col-md-6">
+                <div class="site-card">
+                    <div class="site-image" th:style="'background:url(/images/karnak-temple.jpg) center/cover'">
+                        <div class="era-badge">New Kingdom</div>
+                    </div>
+                    <div class="site-content">
+                        <h3 class="site-title">Karnak Temple Complex</h3>
+                        <p class="site-description">The largest religious building ever constructed, built over 1,300 years. This vast temple complex dedicated to Amun-Ra features magnificent pylons, hypostyle halls, obelisks, and sacred lakes. The Great Hypostyle Hall contains 134 massive columns with intricate hieroglyphic decorations.</p>
+                        <div class="site-highlights">
+                            <span class="highlight-tag">Great Hypostyle Hall</span>
+                            <span class="highlight-tag">Sacred Lake</span>
+                            <span class="highlight-tag">Obelisks</span>
+                            <span class="highlight-tag">Sound & Light Show</span>
+                        </div>
+                        <a th:href="@{/archaeological-sites}" class="button">Visit Karnak</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Valley of the Kings -->
+            <div class="col-md-6">
+                <div class="site-card">
+                    <div class="site-image" th:style="'background:url(/images/valley-of-kings.jpg) center/cover'">
+                        <div class="era-badge">New Kingdom</div>
+                    </div>
+                    <div class="site-content">
+                        <h3 class="site-title">Valley of the Kings</h3>
+                        <p class="site-description">Royal burial ground for pharaohs of the New Kingdom, including Tutankhamun, Ramses II, and Seti I. The valley contains 63 discovered tombs with extraordinary wall paintings, hieroglyphs, and funerary treasures that reveal ancient Egyptian beliefs about the afterlife.</p>
+                        <div class="site-highlights">
+                            <span class="highlight-tag">Tutankhamun's Tomb</span>
+                            <span class="highlight-tag">Wall Paintings</span>
+                            <span class="highlight-tag">Hieroglyphs</span>
+                            <span class="highlight-tag">Royal Mummies</span>
+                        </div>
+                        <a th:href="@{/luxor-city}" class="button">Explore Valley</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abu Simbel -->
+            <div class="col-md-6">
+                <div class="site-card">
+                    <div class="site-image" th:style="'background:url(/images/abu-simbel.jpg) center/cover'">
+                        <div class="era-badge">New Kingdom</div>
+                    </div>
+                    <div class="site-content">
+                        <h3 class="site-title">Abu Simbel Temples</h3>
+                        <p class="site-description">Two magnificent temples built by Ramses II, carved directly into cliff mountains. The Great Temple features colossal statues of the pharaoh, while the Small Temple is known for its beautiful reliefs and astronomical alignment. The temples were strategically located to impress travelers from Nubia.</p>
+                        <div class="site-highlights">
+                            <span class="highlight-tag">Colossal Statues</span>
+                            <span class="highlight-tag">Mountain Carving</span>
+                            <span class="highlight-tag">Astronomical Alignment</span>
+                            <span class="highlight-tag">Nubian Border</span>
+                        </div>
+                        <a th:href="@{/abu-simble}" class="button">Visit Abu Simbel</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Philae Temple -->
+            <div class="col-md-6">
+                <div class="site-card">
+                    <div class="site-image" th:style="'background:url(/images/philae-temple.jpg) center/cover'">
+                        <div class="era-badge">Ptolemaic Period</div>
+                    </div>
+                    <div class="site-content">
+                        <h3 class="site-title">Philae Temple</h3>
+                        <p class="site-description">Beautiful island temple dedicated to Isis, rescued from Nile flooding by UNESCO. The temple complex features stunning Kiosk of Trajan, elegant colonnades, and sophisticated engineering. The sacred island was one of Egypt's most important pilgrimage sites.</p>
+                        <div class="site-highlights">
+                            <span class="highlight-tag">Isis Temple</span>
+                            <span class="highlight-tag">Kiosk of Trajan</span>
+                            <span class="highlight-tag">UNESCO Saved</span>
+                            <span class="highlight-tag">Sacred Island</span>
+                        </div>
+                        <a th:href="@{/archaeological-sites}" class="button">Visit Philae</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Historical Timeline -->
+<section class="timeline-section">
+    <div class="container">
+        <h2 class="section__title">Egypt's Archaeological Timeline</h2>
+        <div class="archaeology-timeline">
+            <div class="timeline-item">
+                <div class="timeline-era">3100-2686 BCE</div>
+                <div class="timeline-content">
+                    <h4>Old Kingdom</h4>
+                    <p>Age of pyramid building, including Djoser's Step Pyramid and the Great Pyramids of Giza. Development of hieroglyphic writing and sophisticated burial practices.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">2055-1650 BCE</div>
+                <div class="timeline-content">
+                    <h4>Middle Kingdom</h4>
+                    <p>Period of artistic achievement, temple building at Karnak and Luxor, and territorial expansion into Nubia and the Levant.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">1550-1070 BCE</div>
+                <div class="timeline-content">
+                    <h4>New Kingdom</h4>
+                    <p>Golden age of Egyptian power, with temples at Karnak, Abu Simbel, and royal tombs in the Valley of the Kings. Egypt reaches its peak of international influence.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">332 BCE-395 CE</div>
+                <div class="timeline-content">
+                    <h4>Ptolemaic Period</h4>
+                    <p>Greek influence on Egyptian culture, temple building at Philae, and the famous Library of Alexandria. Cleopatra's era and Roman conquest.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">395-641 CE</div>
+                <div class="timeline-content">
+                    <h4>Roman Period</h4>
+                    <p>Egypt as a Roman province, preservation of ancient monuments, and early Christian communities. The end of ancient Egyptian religious practices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Archaeological Gallery -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Archaeological Wonders Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" th:style="'background:url(/images/hieroglyphics.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Ancient Hieroglyphics</h4>
+                    <p>Sacred writing system</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/royal-jewelry.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Royal Jewelry</h4>
+                    <p>Pharaonic treasures</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/stone-carvings.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Stone Carvings</h4>
+                    <p>Ancient craftsmanship</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/ancient-tools.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Ancient Tools</h4>
+                    <p>Archaeological finds</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/mummy-mask.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Golden Masks</h4>
+                    <p>Royal funerary art</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/temple-ruins.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Temple Ruins</h4>
+                    <p>Ancient architecture</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Practical Information -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Planning Your Archaeological Journey</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="site-card">
+                    <div class="site-content">
+                        <h3 class="site-title">🕐 Best Time to Visit</h3>
+                        <p><strong>October to April:</strong> Perfect weather for site exploration.</p>
+                        <p><strong>Early Morning:</strong> Beat crowds and heat at major sites.</p>
+                        <div class="discovery-box">
+                            <strong>Pro Tip:</strong> Hire licensed Egyptologist guides for deeper insights into ancient history and culture.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="site-card">
+                    <div class="site-content">
+                        <h3 class="site-title">🎫️ Tickets & Passes</h3>
+                        <p><strong>Giza Pyramids:</strong> Online tickets recommended to avoid queues.</p>
+                        <p><strong>Luxor Sites:</strong> Luxor Pass offers access to multiple sites.</p>
+                        <p><strong>Student Discounts:</strong> Available with valid student ID.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="site-card">
+                    <div class="site-content">
+                        <h3 class="site-title">📸 Photography Guidelines</h3>
+                        <p><strong>Inside Temples:</strong> No flash photography usually permitted.</p>
+                        <p><strong>Outside Sites:</strong> Natural light provides best results.</p>
+                        <p><strong>Golden Hour:</strong> Sunrise and sunset offer magical lighting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container text-center">
+        <h2>Begin Your Archaeological Adventure</h2>
+        <p class="lead">Discover the secrets of ancient Egypt</p>
+        <div class="nav__actions" style="justify-content: center; margin-top: 30px;">
+            <a th:href="@{/cities}" class="button">Explore All Sites</a>
+            <a th:href="@{/what-to-do}" class="button button--ghost">More Activities</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

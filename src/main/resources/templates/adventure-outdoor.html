@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adventure & Outdoor — ExploreHub</title>
+    <meta name="description" content="Egypt adventure activities: desert safaris, mountain trekking, water sports, diving, and outdoor adventures." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        .adventure-hero {
+            background: linear-gradient(rgba(13,71,161,0.9), rgba(25,118,210,0.7)), url('/images/src/main/resources/static/images/2022_7_30_21_34_1_951.png');
+            background-size: cover;
+            background-position: center;
+            color: rgb(124, 100, 100);
+            padding: 120px 0;
+            text-align: center;
+        }
+        .adventure-description {
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        .adventure-card {
+            background: linear-gradient(145deg, #1e3a8a 0%, #2196f3 100%);
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+        .adventure-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+        .adventure-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .adventure-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+        .adventure-content {
+            padding: 30px;
+        }
+        .adventure-title {
+            font-size: 1.6em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+        .adventure-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #ff5722;
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ff5722;
+        }
+        .adventure-stats {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+        .seasonal-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: rgb(162, 140, 140);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        .difficulty-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .easy { background: #4caf50; color: rgb(104, 80, 80); }
+        .moderate { background: #ff9800; color: rgb(104, 80, 80); }
+        .hard { background: #f44336; color: rgb(104, 80, 80); }
+        .expert { background: #9c27b0; color: rgb(104, 80, 80); }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" ></span>
+                
+            </span><span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/deserts}">Deserts</a>
+            <a th:href="@{/red-sea}">Red Sea</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="adventure-hero">
+    <div class="container">
+        <h1>Adventure & Outdoor Activities</h1>
+        <p class="lead">Experience Egypt's Ultimate Outdoor Adventures</p>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="section">
+    <div class="container">
+        <div class="adventure-description">
+            <h2>Egypt's Adventure Paradise</h2>
+            <p>Egypt offers some of the world's most diverse and thrilling outdoor adventures, from desert safaris across golden dunes to diving in crystal-clear Red Sea waters. Whether you seek adrenaline-pumping activities or peaceful nature experiences, Egypt's diverse landscapes provide the perfect playground for adventure enthusiasts. Explore ancient trade routes on camelback, climb sacred mountains, sail the legendary Nile, or discover underwater wonders in the Red Sea.</p>
+            
+            <div class="adventure-stats">
+                <h3>Adventure Statistics</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏜️</div>
+                        <h4>1,000+ km</h4>
+                        <p>Desert trails</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌊</div>
+                        <h4>50+ Dive Sites</h4>
+                        <p>Red Sea locations</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏔</div>
+                        <h4>2,285m</h4>
+                        <p>Mt. Sinai height</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🚣</div>
+                        <h4>365 Days</h4>
+                        <p>Adventure weather</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Desert Adventures -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Desert Safari Adventures</h2>
+        
+        <!-- 4x4 Desert Safari -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/desert-safari-4x4.jpg) center/cover'">
+                <div class="adventure-badge">Most Popular</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">4x4 Desert Safari</h3>
+                <p class="adventure-description">Experience the ultimate desert adventure in powerful 4x4 vehicles across Egypt's Western Desert. Navigate through golden sand dunes, discover hidden oases, and camp under star-filled skies. Professional guides lead you to remote locations while sharing fascinating stories about desert life and survival.</p>
+                <div class="difficulty-badge moderate">Moderate Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🚗</div>
+                        <h4>Off-Road Thrills</h4>
+                        <p>Dune bashing</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏕️</div>
+                        <h4>Desert Camping</h4>
+                        <p>Under the stars</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌅</div>
+                        <h4>Sunset Views</h4>
+                        <p>Golden hour magic</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🐪</div>
+                        <h4>Wildlife</h4>
+                        <p>Desert animals</p>
+                    </div>
+                </div>
+                <a th:href="@{/deserts}" class="button">Book Desert Safari</a>
+            </div>
+        </div>
+
+        <!-- Camel Trekking -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/camel-trekking.jpg) center/cover'">
+                <div class="adventure-badge">Traditional</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">Camel Trekking</h3>
+                <p class="adventure-description">Follow ancient trade routes on camelback, just as traders have done for thousands of years. Multi-day treks take you through stunning desert landscapes, from the White Desert's surreal formations to the peaceful oases of Siwa and Bahariya. Experience the gentle rhythm of desert travel while connecting with Egypt's timeless traditions.</p>
+                <div class="difficulty-badge easy">Easy Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🐪</div>
+                        <h4>Traditional Transport</h4>
+                        <p>Authentic experience</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏜️</div>
+                        <h4>Multi-Day Treks</h4>
+                        <p>2-10 days available</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌅</div>
+                        <h4>Desert Sunsets</h4>
+                        <p>Unforgettable views</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏺</div>
+                        <h4>Bedouin Camps</h4>
+                        <p>Traditional hospitality</p>
+                    </div>
+                </div>
+                <a th:href="@{/deserts}" class="button">Explore Camel Treks</a>
+            </div>
+        </div>
+
+        <!-- Sandboarding -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/sandboarding.jpg) center/cover'">
+                <div class="adventure-badge">Adrenaline Rush</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">Sandboarding</h3>
+                <p class="adventure-description">Slide down massive sand dunes on specialized sandboards, reaching speeds up to 50 km/h. This thrilling activity combines the excitement of snowboarding with Egypt's desert landscape. Perfect for adrenaline junkies looking for a unique desert adventure with stunning photo opportunities.</p>
+                <div class="difficulty-badge moderate">Moderate Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏂</div>
+                        <h4>High Speeds</h4>
+                        <p>Up to 50 km/h</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏜️</div>
+                        <h4>Multiple Dunes</h4>
+                        <p>Various locations</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📸</div>
+                        <h4>Photo Perfect</h4>
+                        <p>Action shots</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌅</div>
+                        <h4>Golden Hour</h4>
+                        <p>Best lighting</p>
+                    </div>
+                </div>
+                <a th:href="@{/deserts}" class="button">Try Sandboarding</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Mountain Adventures -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Mountain & Trekking Adventures</h2>
+        
+        <!-- Mount Sinai -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/mount-sinai.jpg) center/cover'">
+                <div class="adventure-badge">Sacred Peak</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">Mount Sinai Climbing</h3>
+                <p class="adventure-description">Climb the sacred mountain where Moses received the Ten Commandments, reaching 2,285 meters at its peak. This challenging trek takes you through stunning mountain landscapes, past ancient monasteries, and rewards with breathtaking panoramic views of the Sinai Peninsula and surrounding deserts.</p>
+                <div class="difficulty-badge hard">Hard Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏔</div>
+                        <h4>2,285m Summit</h4>
+                        <p>Highest point</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⛪</div>
+                        <h4>Sacred Sites</h4>
+                        <p>Monastery visits</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌅</div>
+                        <h4>Sunrise Views</h4>
+                        <p>Spectacular panoramas</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🥾</div>
+                        <h4>Religious Significance</h4>
+                        <p>Biblical history</p>
+                    </div>
+                </div>
+                <a th:href="@{/adventure-outdoor}" class="button">Climb Mount Sinai</a>
+            </div>
+        </div>
+
+        <!-- Red Sea Mountains -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/red-sea-mountains.jpg) center/cover'">
+                <div class="adventure-badge">Hidden Gems</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">Red Sea Mountain Trekking</h3>
+                <p class="adventure-description">Discover Egypt's stunning Red Sea mountain ranges, perfect for hiking and rock climbing. These mountains offer dramatic coastal views, hidden valleys, and unique ecosystems combining desert and mountain environments. Trails range from easy coastal walks to challenging multi-day treks.</p>
+                <div class="difficulty-badge moderate">Moderate Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏔</div>
+                        <h4>Coastal Peaks</h4>
+                        <p>Sea views</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌿</div>
+                        <h4>Unique Flora</h4>
+                        <p>Mountain plants</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🦅</div>
+                        <h4>Bird Watching</h4>
+                        <p>Migratory routes</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📸</div>
+                        <h4>Rock Art</h4>
+                        <p>Ancient petroglyphs</p>
+                    </div>
+                </div>
+                <a th:href="@{/adventure-outdoor}" class="button">Explore Mountains</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Water Adventures -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Water Sports & Marine Adventures</h2>
+        
+        <!-- Red Sea Diving -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/red-sea-diving.jpg) center/cover'">
+                <div class="adventure-badge">World-Class</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">Red Sea Scuba Diving</h3>
+                <p class="adventure-description">Explore Egypt's spectacular Red Sea underwater world, home to 1,200+ fish species and vibrant coral reefs. From beginner-friendly dive sites to challenging wreck dives, the Red Sea offers some of the world's best diving conditions with crystal-clear visibility and abundant marine life.</p>
+                <div class="difficulty-badge moderate">Moderate Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🐠</div>
+                        <h4>1,200+ Fish</h4>
+                        <p>Species diversity</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🪸</div>
+                        <h4>200+ Corals</h4>
+                        <p>Healthy reefs</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚓</div>
+                        <h4>Wreck Dives</h4>
+                        <p>Historical ships</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👁️</div>
+                        <h4>30m+ Visibility</h4>
+                        <p>Crystal clear</p>
+                    </div>
+                </div>
+                <a th:href="@{/red-sea}" class="button">Discover Diving</a>
+            </div>
+        </div>
+
+        <!-- Kitesurfing -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/kitesurfing.jpg) center/cover'">
+                <div class="adventure-badge">Wind Paradise</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">Kitesurfing & Windsurfing</h3>
+                <p class="adventure-description">Harness the power of consistent winds in Egypt's Red Sea resorts. World-renowned spots like Dahab offer perfect conditions for all skill levels, from beginners learning basics to professionals performing spectacular tricks. The warm waters and reliable winds create an adrenaline-pumping experience.</p>
+                <div class="difficulty-badge moderate">Moderate Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌬</div>
+                        <h4>Perfect Winds</h4>
+                        <p>Consistent conditions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏄</div>
+                        <h4>Warm Waters</h4>
+                        <p>26°C year-round</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <h4>World-Class Spots</h4>
+                        <p>Dahab, Hurghada</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎓</div>
+                        <h4>All Levels</h4>
+                        <p>Beginner to expert</p>
+                    </div>
+                </div>
+                <a th:href="@{/red-sea}" class="button">Try Kitesurfing</a>
+            </div>
+        </div>
+
+        <!-- Nile Kayaking -->
+        <div class="adventure-card">
+            <div class="adventure-image" th:style="'background:url(/images/nile-kayaking.jpg) center/cover'">
+                <div class="adventure-badge">Classic Adventure</div>
+            </div>
+            <div class="adventure-content">
+                <h3 class="adventure-title">Nile Kayaking & Rafting</h3>
+                <p class="adventure-description">Paddle along the legendary Nile River, experiencing Egypt's lifeline from a unique perspective. Multi-day kayaking trips take you through ancient landscapes, past traditional villages, and alongside historical monuments. Combine adventure with cultural discovery as you follow the world's most famous river.</p>
+                <div class="difficulty-badge easy">Easy Difficulty</div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🚣</div>
+                        <h4>6,650km</h4>
+                        <p>River length</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏛️</div>
+                        <h4>Ancient Sites</h4>
+                        <p>Riverside temples</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌿</div>
+                        <h4>River Life</h4>
+                        <p>Birds & wildlife</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏺</div>
+                        <h4>Village Stops</h4>
+                        <p>Local culture</p>
+                    </div>
+                </div>
+                <a th:href="@{/nile}" class="button">Explore Nile</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Adventure Gallery -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Adventure Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" th:style="'background:url(/images/desert-camping.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Desert Camping</h4>
+                    <p>Under the stars</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/mountain-climbing.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Rock Climbing</h4>
+                    <p>Mountain adventures</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/diving-reef.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Reef Diving</h4>
+                    <p>Underwater wonders</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/windsurfing-action.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Windsurfing</h4>
+                    <p>Adrenaline sports</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/camel-caravan.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Camel Caravans</h4>
+                    <p>Desert traditions</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/nile-sailing.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Nile Sailing</h4>
+                    <p>River journeys</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Practical Information -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Adventure Planning Guide</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="adventure-card">
+                    <div class="adventure-content">
+                        <h3 class="adventure-title">🕐 Best Seasons</h3>
+                        <p><strong>October to April:</strong> Perfect for desert and mountain activities.</p>
+                        <p><strong>May to September:</strong> Ideal for water sports and Red Sea adventures.</p>
+                        <div class="seasonal-info">
+                            <strong>Tip:</strong> Egypt offers year-round adventure opportunities with different seasons perfect for different activities.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="adventure-card">
+                    <div class="adventure-content">
+                        <h3 class="adventure-title">🎒 Equipment</h3>
+                        <p><strong>Desert:</strong> Sun protection, layers, sturdy boots, plenty of water.</p>
+                        <p><strong>Mountains:</strong> Hiking boots, warm clothing, headlamp, first aid kit.</p>
+                        <p><strong>Water Sports:</strong> Swimsuit, towel, waterproof camera, reef-safe sunscreen.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="adventure-card">
+                    <div class="adventure-content">
+                        <h3 class="adventure-title">⚠️ Safety Guidelines</h3>
+                        <p><strong>Guides:</strong> Always use licensed, experienced guides for remote areas.</p>
+                        <p><strong>Weather:</strong> Check conditions before mountain or desert activities.</p>
+                        <p><strong>Marine:</strong> Follow reef conservation guidelines and dive with certified operators.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container text-center">
+        <h2>Start Your Egyptian Adventure</h2>
+        <p class="lead">From desert dunes to coral reefs - Egypt awaits!</p>
+        <div class="nav__actions" style="justify-content: center; margin-top: 30px;">
+            <a th:href="@{/deserts}" class="button">Desert Adventures</a>
+            <a th:href="@{/red-sea}" class="button button--ghost">Water Sports</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

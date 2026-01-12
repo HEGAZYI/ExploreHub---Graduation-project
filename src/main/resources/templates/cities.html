@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cities of Egypt — ExploreHub</title>
+    <meta name="description" content="Discover Egyptian cities: Cairo, Giza, Luxor, Aswan, Alexandria, Sharm El-Sheikh, Hurghada, Dahab." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        .city-description {
+            line-height: 1.6;
+            color: #555;
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+        .city-highlights {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .city-highlights h3 {
+            margin-top: 0;
+            color: white;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .highlight-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #007bff;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+<!-- ✅ Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" ></span>
+            <span>ExploreHub</span>
+        </a>
+
+        <nav class="nav__links">
+            <a th:href="@{/about}">About Egypt</a>
+            <a th:href="@{/where-to-go}">Where to Go</a>
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/whats-on}">What's On</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- ✅ Main Content -->
+<main>
+    <section class="hero">
+        <div class="hero__surface"></div>
+        <div class="container hero__content">
+            <div>
+                <span class="eyebrow">Plan your city stays</span>
+                <h1>Cities of Egypt</h1>
+                <p class="lead">
+                    Explore neighborhoods, sights, food, and culture—complete with galleries, guides, and videos.
+                </p>
+            </div>
+            <div class="hero__media"
+                 role="img"
+                 aria-label="Cairo skyline"
+                 th:style="'background:url(' + @{/images/2022_10_5_14_38_0_121.jpg} + ') center/cover no-repeat;'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="section">
+        <div class="container">
+            <div class="city-description">
+                <h2>Discover Egypt's Magnificent Cities</h2>
+                <p>Egypt's cities are a mesmerizing blend of ancient wonders and modern life. From the bustling metropolis of Cairo with its iconic pyramids and vibrant markets, to the serene beauty of Aswan's Nile islands, each city tells a unique story spanning thousands of years. Explore the Mediterranean charm of Alexandria, dive into the Red Sea paradise of Sharm El-Sheikh, or wander through the open-air museum of Luxor where pharaohs built their eternal monuments.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">7,000+</div>
+                        <div class="stat-label">Years of History</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Major Cities</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Ancient Sites</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2,000+</div>
+                        <div class="stat-label">km of Coastline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Major Cities</h2>
+            <div class="grid grid--cards">
+
+                <!-- ✅ Cairo -->
+                <a class="card" th:href="@{/cairo}">
+                    <div class="card__media"
+                         th:style="'background:url(' + @{/images/cairoo.png} + ') center/cover no-repeat;'"
+                         role="img" aria-label="Cairo"></div>
+                    <div class="card__body">
+                        <h3 class="card__title">Cairo</h3>
+                        <div class="card__meta">The City of a Thousand Minarets</div>
+                        <p class="city-description">Egypt's vibrant capital, where ancient pyramids meet modern skyscrapers. Home to the Egyptian Museum, Khan el-Khalili bazaar, and countless mosques.</p>
+                        <div class="city-highlights">
+                            <h4>Top Attractions</h4>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🏛️</span>
+                                <span>Giza Pyramids & Sphinx</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🕌</span>
+                                <span>Islamic Cairo & Mosques</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🏺</span>
+                                <span>Egyptian Museum</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- ✅ Giza -->
+                <a class="card" th:href="@{/giza}">
+                    <div class="card__media"
+                         th:style="'background:url(' + @{/images/960x0960x0.jpg} + ') center/cover no-repeat;'"
+                         role="img" aria-label="Giza Pyramids"></div>
+                    <div class="card__body">
+                        <h3 class="card__title">Giza</h3>
+                        <div class="card__meta">Home of the Ancient Wonders</div>
+                        <p class="city-description">Stand in awe before the last surviving Wonder of the Ancient World. The Giza Plateau offers breathtaking views of the Great Pyramid, Sphinx, and ancient royal tombs.</p>
+                        <div class="city-highlights">
+                            <h4>Must-See Sites</h4>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🔺</span>
+                                <span>Great Pyramid of Khufu</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🦁</span>
+                                <span>Great Sphinx</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">⛵</span>
+                                <span>Solar Boat Museum</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- ✅ Luxor -->
+                <a class="card" th:href="@{/luxor-city}">
+                    <div class="card__media"
+                         th:style="'background:url(' + @{/images/2022_8_7_14_50_5_786.jpg} + ') center/cover no-repeat;'"
+                         role="img" aria-label="Luxor"></div>
+                    <div class="card__body">
+                        <h3 class="card__title">Luxor</h3>
+                        <div class="card__meta">World's Greatest Open-Air Museum</div>
+                        <p class="city-description">Ancient Thebes, where pharaohs built magnificent temples and tombs. Walk through the Valley of the Kings, stand before Karnak Temple, and cruise the Nile at sunset.</p>
+                        <div class="city-highlights">
+                            <h4>Historic Treasures</h4>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🏛️</span>
+                                <span>Karnak Temple Complex</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">⚱️</span>
+                                <span>Valley of the Kings</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">👑</span>
+                                <span>Luxor Temple</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- ✅ Aswan -->
+                <a class="card" th:href="@{/aswan-city}">
+                    <div class="card__media"
+                         th:style="'background:url(' + @{/images/2022_7_23_21_12_26_890.jpeg} + ') center/cover no-repeat;'"
+                         role="img" aria-label="Aswan"></div>
+                    <div class="card__body">
+                        <h3 class="card__title">Aswan</h3>
+                        <div class="card__meta">Nubian Paradise on the Nile</div>
+                        <p class="city-description">Egypt's southern jewel, where the Nile flows gently past colorful Nubian villages, ancient temples, and the magnificent High Dam. Experience authentic Nubian culture.</p>
+                        <div class="city-highlights">
+                            <h4>Nile Beauty</h4>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🏝️</span>
+                                <span>Philae Temple</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🛶</span>
+                                <span>Felucca Nile Cruises</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🌅</span>
+                                <span>Abu Simbel Temples</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ✅ Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

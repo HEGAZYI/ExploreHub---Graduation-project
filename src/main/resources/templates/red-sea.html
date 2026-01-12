@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Red Sea — ExploreHub</title>
+    <meta name="description" content="Diving, snorkeling, and resort life in Egypt's Red Sea: Hurghada, Sharm El-Sheikh, Marsa Alam, Dahab." />
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" />
+    <style>
+        /* Dark Mode Theme */
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        .header {
+            background: #1a1a1a;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .nav__links a {
+            color: #b0b0b0;
+        }
+
+        .nav__links a:hover {
+            color: #64b5f6;
+        }
+
+        .hero {
+            background: url('/images/2022_6_20_23_32_1_424.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .section {
+            background: #1a1a1a;
+            border-top: 1px solid #2d2d2d;
+        }
+
+        .section__title {
+            color: #64b5f6;
+            text-shadow: 0 2px 4px rgba(100,181,246,0.3);
+        }
+
+        .card {
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+
+        .card-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+
+        .card-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            border: 1px solid #64b5f6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #90caf9;
+            text-shadow: 0 2px 4px rgba(33,150,243,0.3);
+        }
+
+        .stats {
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            color: rgb(78, 66, 66);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .tips-box {
+            border-left: 4px solid #0d47a1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(13,71,161,0.2);
+        }
+
+        .footer {
+            background: #1a1a1a;
+            border-top: 1px solid #2d2d2d;
+            color: #b0b0b0;
+        }
+
+        .footer__legal {
+            color: #888;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: white;
+            border: 1px solid #1976d2;
+        }
+
+        .button:hover {
+            border-color: #2196f3;
+        }
+        
+        .highlight-text {
+            color: #64b5f6;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" alt="ExploreHub Logo"></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/about}">About Egypt</a>
+            <a th:href="@{/where-to-go}">Where to Go</a>
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/whats-on}">What's On</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero__surface"></div>
+        <div class="container hero__content">
+            <div>
+                <span class="eyebrow">Region</span>
+                <h1>The Red Sea</h1>
+                <p class="lead">World-famous coral reefs, calm bays, and resort towns perfect for sun, sea, and water sports.</p>
+            </div>
+            <div class="hero__media"
+                 role="img"
+                 aria-label="Coral reef in Red Sea"
+                 th:style="'background:url(' + @{/images/2022_6_20_23_32_1_424.jpg} + ') center/cover no-repeat;'">
+            </div>
+        </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Egypt's Marine Paradise</h2>
+            <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 30px;">
+                The Red Sea is a world-renowned destination for marine enthusiasts, offering <span class="highlight-text">crystal-clear waters</span>, vibrant coral reefs, and year-round sunshine. Stretching along Egypt's eastern coast, this aquatic paradise features world-class diving sites, luxurious resorts, and endless opportunities for water sports. From the bustling nightlife of Hurghada to the pristine beaches of Marsa Alam, the Red Sea caters to every type of traveler seeking sun, sea, and adventure.
+            </p>
+            
+            <div class="stats">
+                <h3 style="color: #64b5f6; margin-bottom: 20px;">Red Sea Statistics</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌊</div>
+                        <h4>1,900 km</h4>
+                        <p>Coastline length</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🐠</div>
+                        <h4>1,200+ Species</h4>
+                        <p>Marine life</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏖️</div>
+                        <h4>365 Days</h4>
+                        <p>Sunshine</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🤿</div>
+                        <h4>50+ Sites</h4>
+                        <p>Diving locations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESORT DESTINATIONS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Resort Destinations</h2>
+            <div class="row">
+                
+                <!-- Hurghada -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2022_7_21_1_3_20_870.jpg) center/cover'">
+                            <div class="badge">Popular</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Hurghada</h3>
+                            <p class="card-description">
+                                Egypt's largest Red Sea resort town, offering vibrant nightlife, extensive diving opportunities, and family-friendly beaches. Perfect blend of relaxation and entertainment with world-class hotels, water parks, and shopping centers.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏖️</div>
+                                    <h4>Beach Life</h4>
+                                    <p>Golden sands</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🤿</div>
+                                    <h4>Diving</h4>
+                                    <p>Beginner to pro</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌃</div>
+                                    <h4>Nightlife</h4>
+                                    <p>Entertainment</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🛍️</div>
+                                    <h4>Shopping</h4>
+                                    <p>Souvenirs & more</p>
+                                </div>
+                            </div>
+                            <a th:href="@{/red-sea}" class="button">Explore Hurghada</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sharm El-Sheikh -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2022_7_21_18_8_20_881.jpeg) center/cover'">
+                            <div class="badge">Luxury</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Sharm El-Sheikh</h3>
+                            <p class="card-description">
+                                Premium resort destination with stunning beaches, world-renowned diving sites, and luxury accommodations. Home to Ras Mohammed National Park and some of the most spectacular coral reefs in the world.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏨</div>
+                                    <h4>Luxury</h4>
+                                    <p>5-star resorts</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🐠</div>
+                                    <h4>Marine Life</h4>
+                                    <p>Rich biodiversity</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏞️</div>
+                                    <h4>National Park</h4>
+                                    <p>Ras Mohammed</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌅</div>
+                                    <h4>Sunsets</h4>
+                                    <p>Spectacular views</p>
+                                </div>
+                            </div>
+                            <a th:href="@{/red-sea}" class="button">Explore Sharm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WATER ACTIVITIES -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Water Activities</h2>
+            <div class="row">
+                
+                <!-- Diving & Snorkeling -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2022_8_7_14_31_57_32.jpg) center/cover'">
+                            <div class="badge">Must Do</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Diving & Snorkeling</h3>
+                            <p class="card-description">
+                                Explore the Red Sea's underwater paradise with world-class diving and snorkeling opportunities. Discover vibrant coral gardens, shipwrecks, and encounters with dolphins, turtles, and colorful fish. Suitable for all skill levels.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🤿</div>
+                                    <h4>Scuba Diving</h4>
+                                    <p>All levels</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏊</div>
+                                    <h4>Snorkeling</h4>
+                                    <p>Easy access</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🐢</div>
+                                    <h4>Marine Life</h4>
+                                    <p>Sea turtles</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🚢</div>
+                                    <h4>Wreck Diving</h4>
+                                    <p>Historic ships</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Water Sports -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2022_8_5_2_2_22_302.jpg) center/cover'">
+                            <div class="badge">Adventure</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Water Sports</h3>
+                            <p class="card-description">
+                                Adrenaline-pumping activities for adventure seekers. From kitesurfing in Dahab to windsurfing in Safaga, the Red Sea offers perfect conditions for water sports enthusiasts with steady winds and clear waters.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🪂</div>
+                                    <h4>Kitesurfing</h4>
+                                    <p>World-class spots</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏄</div>
+                                    <h4>Windsurfing</h4>
+                                    <p>Perfect conditions</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🚤</div>
+                                    <h4>Boat Trips</h4>
+                                    <p>Island hopping</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🪂</div>
+                                    <h4>Parasailing</h4>
+                                    <p>Aerial views</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESERT ADVENTURES -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Desert Adventures</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏜️ Desert Safari</h3>
+                            <p class="card-description">
+                                Experience the magic of the Egyptian desert with thrilling 4x4 adventures across golden sand dunes. Discover hidden oases, encounter wildlife, and witness breathtaking sunsets over the vast desert landscape.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🚗</div>
+                                    <h4>4x4 Safari</h4>
+                                    <p>Desert driving</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌅</div>
+                                    <h4>Sunset Views</h4>
+                                    <p>Golden hour</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🐪</div>
+                                    <h4>Camel Rides</h4>
+                                    <p>Traditional transport</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏕️ Bedouin Experience</h3>
+                            <p class="card-description">
+                                Immerse yourself in authentic Bedouin culture with traditional desert camps. Enjoy starlit dinners, folk music, and learn about ancient desert traditions from local tribes.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌌</div>
+                                    <h4>Stargazing</h4>
+                                    <p>Desert nights</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🍽️</div>
+                                    <h4>Traditional Food</h4>
+                                    <p>Bedouin cuisine</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎵</div>
+                                    <h4>Folk Music</h4>
+                                    <p>Live performances</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏍️ Quad Biking</h3>
+                            <p class="card-description">
+                                Thrilling quad bike adventures through desert terrain. Navigate sand dunes, discover remote areas, and experience the freedom of the desert with guided tours suitable for all skill levels.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏍️</div>
+                                    <h4>ATV Tours</h4>
+                                    <p>Desert trails</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏔️</div>
+                                    <h4>Mountain Views</h4>
+                                    <p>Scenic routes</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">📸</div>
+                                    <h4>Photo Stops</h4>
+                                    <p>Desert landscapes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAVEL TIPS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Travel Tips</h2>
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">Best Time to Visit</h3>
+                <p><strong>March to June & September to November</strong> - Ideal temperatures (25-30°C), calm waters, perfect for diving and water sports. Peak season with great weather conditions.</p>
+                <p><strong>July to August</strong> - Hottest months (35-40°C), but fewer crowds and lower prices. Early morning activities recommended.</p>
+                <p><strong>December to February</strong> - Cooler temperatures (20-25°C), pleasant for all activities. Some windier days good for water sports.</p>
+            </div>
+            
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">Diving & Water Safety</h3>
+                <p><strong>Certification:</strong> Choose PADI/SSI certified dive centers. Check instructor qualifications and group sizes.</p>
+                <p><strong>Equipment:</strong> Bring your own gear or rent from reputable centers. Check equipment before each dive.</p>
+                <p><strong>Marine Protection:</strong> Use reef-safe sunscreen, don't touch coral, maintain safe distance from marine life.</p>
+                <p><strong>Health:</strong> Stay hydrated, avoid diving within 24 hours of flying, know your limits.</p>
+            </div>
+            
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">What to Pack</h3>
+                <p><strong>Beach Wear:</strong> Swimwear, cover-ups, sun hat, sunglasses, reef-safe sunscreen.</p>
+                <p><strong>Water Sports:</strong> Rash guard, water shoes, waterproof camera, action camera.</p>
+                <p><strong>Desert Tours:</strong> Light layers, closed shoes, scarf for sand protection, warm jacket for evenings.</p>
+                <p><strong>Essentials:</strong> First aid kit, insect repellent, reusable water bottle, power bank.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Red Sea Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" th:style="'background:url(/images/2022_6_20_23_32_1_424.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Coral Reef</h4>
+                        <p>Vibrant underwater world</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/2022_7_21_1_3_20_870.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Pristine Beaches</h4>
+                        <p>Golden sands & clear waters</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/2022_8_7_14_31_57_32.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Scuba Diving</h4>
+                        <p>World-class dive sites</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/2022_8_5_2_2_22_302.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Desert Safari</h4>
+                        <p>Adventure awaits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED© 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

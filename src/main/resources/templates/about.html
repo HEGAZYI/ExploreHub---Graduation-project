@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${pageTitle}">About Egypt | ExploreHub</title>
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo">
+                <img th:src="@{/images/website_main_logo.png}" alt="Logo" style="width:100%; height:100%; border-radius:8px;">
+            </span>
+            <span>ExploreHub</span>
+        </a>
+
+        <nav class="nav__links">
+            <a th:classappend="${activePage == 'about'} ? 'active'" th:href="@{/about}">About Egypt</a>
+            <a th:href="@{/where-to-go}">Where to Go</a>
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/whats-on}">What's On</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/show/pages}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero__surface"></div>
+        <div class="container hero__content">
+            <div>
+                <span class="eyebrow">The Gift of the Nile</span>
+                <h1>A Land of Infinite Discovery</h1>
+                <p class="lead">
+                    From the legendary Great Pyramids to the crystal-clear waters of the Red Sea, Egypt offers a journey through time and a vibrant experience of modern culture.
+                </p>
+                <div class="nav__actions">
+                    <a href="#heritage" class="button">Explore History</a>
+                    <a href="#destinations" class="button button--ghost">View Destinations</a>
+                </div>
+            </div>
+            <div class="hero__media">
+                <img th:src="@{/images/2022_10_2_19_12_0_904.jpg}" alt="Sunset over the Nile" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Egypt at a Glance</h2>
+            <div class="bento" style="margin-top: 24px;">
+                <div class="card">
+                    <div class="card__media">
+                        <img th:src="@{/images/2024_2_21_12_57_50_353.jpeg}" alt="The Nile River" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="card__body">
+                        <h3 class="card__title">The Lifeline of a Nation</h3>
+                        <p class="card__meta">The Nile flows north to the Mediterranean, acting as the heart of Egyptian agriculture and life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="heritage">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Rich Cultural Mosaic</h2>
+            </div>
+            <div class="grid grid--cards">
+                <article class="card">
+                    <div class="card__media">
+                        <img th:src="@{/images/2022_10_2_19_12_0_904.jpg}" alt="Ancient Temples">
+                    </div>
+                    <div class="card__body">
+                        <h4 class="card__title">Pharaonic Legacy</h4>
+                        <p class="card__meta">Dynastic monuments, pyramids, and the world-renowned temples of Luxor and Abu Simbel.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card__media">
+                        <img th:src="@{/images/83098403-7dc1-4281-a4d3-f0ad405211af83098403-7dc1-4281-a4d3-f0ad405211af.jpg}" alt="Old Cairo">
+                    </div>
+                    <div class="card__body">
+                        <h4 class="card__title">Spiritual Heritage</h4>
+                        <p class="card__meta">Experience the historic beauty of Coptic churches and the intricate minarets of Islamic Cairo.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card__media">
+                        <img th:src="@{/images/2022_10_4_11_56_31_821.jpg}" alt="Egyptian Cuisine">
+                    </div>
+                    <div class="card__body">
+                        <h4 class="card__title">A Taste of Egypt</h4>
+                        <p class="card__meta">From the street-favorite Koshary to fresh Mediterranean seafood and traditional Feteer.</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card__media">
+                        <img th:src="@{/images/2024_3_25_13_59_44_156.jpg}" alt="Alexandria Port">
+                    </div>
+                    <div class="card__body">
+                        <h4 class="card__title">Contemporary Life</h4>
+                        <p class="card__meta">Global hubs like Cairo and Alexandria blend timeless tradition with a vibrant modern pulse.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="destinations">
+        <div class="container">
+            <h2 class="section__title">Geography & Coastal Beauty</h2>
+            <p>
+                Egypt is bordered by the Mediterranean to the north and the Red Sea to the east, home to some of the world's most stunning coral reefs.
+            </p>
+            <div class="hero__media" style="margin-top: 24px;">
+                <img th:src="@{/images/56735645673564.jpg}" alt="Red Sea Coastline" style="width: 100%; height: 350px; object-fit: cover;">
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__grid">
+            <div class="footer__group">
+                <h4 class="brand">ExploreHub</h4>
+                <p class="card__meta">Your ultimate guide to the wonders of Egypt.</p>
+            </div>
+            <div class="footer__group">
+                <h4>Explore</h4>
+                <nav class="footer__legal" style="border:none; padding:0; display:flex; flex-direction:column; gap:8px;">
+                    <a th:href="@{/about}">About</a>
+                    <a th:href="@{/where-to-go}">Destinations</a>
+                    <a th:href="@{/what-to-do}">Activities</a>
+                </nav>
+            </div>
+        </div>
+        <div class="footer__legal">
+            <div>ALL RIGHTS RESERVED © <span th:text="${currentYear}">2026</span> ExploreHub</div>
+        </div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

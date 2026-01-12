@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cruising & Sailing — ExploreHub</title>
+    <meta name="description" content="Discover Egypt's Nile cruising and sailing experiences: traditional feluccas, luxury dahabiyas, and river adventures." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        .cruise-hero {
+            background: linear-gradient(rgba(13,71,161,0.9), rgba(25,118,210,0.7)), url('/images/2022_7_21_18_57_29_773.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(124, 100, 100);
+            padding: 120px 0;
+            text-align: center;
+        }
+        .cruise-description {
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        .cruise-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+        .cruise-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.2);
+            border-color: #00bcd4;
+        }
+        .cruise-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .cruise-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+        .cruise-content {
+            padding: 30px;
+        }
+        .cruise-title {
+            font-size: 1.8em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-item {
+            background: linear-gradient(145deg, #e3f2fd 0%, #ffffff 100%);
+            border: 1px solid #2196f3;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.1);
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #2196f3;
+            text-shadow: 0 2px 4px rgba(33,150,243,0.1);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: rgb(78, 66, 66);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        .cruise-stats {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+        .experience-box {
+            background: linear-gradient(145deg, #e3f2fd 0%, #ffffff 100%);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(227,160,26,0.1);
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" alt="ExploreHub Logo"></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/cities}">Cities</a>
+            <a th:href="@{/red-sea}">Red Sea</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="cruise-hero">
+    <div class="container">
+        <h1>Nile Cruising & Sailing</h1>
+        <p class="lead">Timeless journeys on Egypt's legendary river</p>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="section">
+    <div class="container">
+        <div class="cruise-description">
+            <h2>Egypt's River Heritage</h2>
+            <p>The Nile River has been Egypt's lifeline for millennia, serving as the primary route for trade, transportation, and cultural exchange. Today, cruising the Nile offers travelers a unique perspective on Egypt's ancient civilization, from traditional felucca sailboats to luxury cruise ships. Whether you seek adventure, relaxation, or cultural immersion, Nile cruising provides an unforgettable journey through the heart of Egypt.</p>
+            
+            <div class="cruise-stats">
+                <h3>Cruising Statistics</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">⛵</div>
+                        <h4>6,650 km</h4>
+                        <p>Nile length</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🚢</div>
+                        <h4>500+ Boats</h4>
+                        <p>Cruise fleet</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏛️</div>
+                        <h4>50+ Sites</h4>
+                        <p>Riverside attractions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌅</div>
+                        <h4>Sunset Views</h4>
+                        <p>Golden hour magic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Cruise Options -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Nile Cruise Experiences</h2>
+        <div class="row">
+            
+            <!-- Traditional Felucca -->
+            <div class="col-md-6">
+                <div class="cruise-card">
+                    <div class="cruise-image" th:style="'background:url(/images/Feluccas-in-Aswan.jpg) center/cover'">
+                        <div class="cruise-badge">Traditional</div>
+                    </div>
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">Traditional Felucca Cruises</h3>
+                        <p class="cruise-description">Experience the timeless beauty of Nile sailing aboard traditional wooden feluccas. These graceful sailboats, unchanged for centuries, offer an authentic and peaceful way to explore the river. Perfect for sunset cruises and overnight journeys under the stars.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⛵</div>
+                                <h4>Wooden Sails</h4>
+                                <p>Traditional craftsmanship</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌅</div>
+                                <h4>Sunset Cruises</h4>
+                                <p>Golden hour sailing</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏕️</div>
+                                <h4>Overnight Stays</h4>
+                                <p>Sleep under stars</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/adventure-outdoor}" class="button">Book Felucca Cruise</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Luxury Dahabiya -->
+            <div class="col-md-6">
+                <div class="cruise-card">
+                    <div class="cruise-image" th:style="'background:url(/images/2022_7_21_0_13_6_212.jpeg) center/cover'">
+                        <div class="cruise-badge">Luxury</div>
+                    </div>
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">Luxury Dahabiyas</h3>
+                        <p class="cruise-description">Indulge in luxury aboard elegant dahabiyas, Egypt's traditional Nile cruise ships. These floating hotels offer spacious cabins, gourmet dining, and panoramic views while sailing between Luxor and Aswan through ancient temples and monuments.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🍽️</div>
+                                <h4>Gourmet Dining</h4>
+                                <p>International cuisine</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🛏️</div>
+                                <h4>Luxury Cabins</h4>
+                                <p>Spacious suites</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏊</div>
+                                <h4>Pool Decks</h4>
+                                <p>Relaxation areas</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/red-sea}" class="button">Book Luxury Cruise</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Popular Routes -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Popular Nile Routes</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="cruise-card">
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">🌅 Luxor to Aswan</h3>
+                        <p class="cruise-description">The classic Nile journey, passing by ancient temples, tombs, and traditional villages. This 3-7 day cruise showcases Egypt's pharaonic heritage with stops at Kom Ombo, Edfu, and Philae.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⏱️</div>
+                                <h4>3-7 Days</h4>
+                                <p>Classic duration</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏛️</div>
+                                <h4>Temple Stops</h4>
+                                <p>Ancient sites</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cruise-card">
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">🏛️ Cairo to Luxor</h3>
+                        <p class="cruise-description">Journey from the capital to ancient Thebes, offering glimpses of rural life along the Nile banks. This route provides access to Valley of the Kings and Karnak Temple complex.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⏱️</div>
+                                <h4>2-3 Days</h4>
+                                <p>Short trips</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌾</div>
+                                <h4>Rural Views</h4>
+                                <p>Traditional life</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cruise-card">
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">🌊 Aswan to Abu Simbel</h3>
+                        <p class="cruise-description">Sail to the magnificent temples of Abu Simbel, built by Ramses II. This route combines Nile cruising with visits to one of Egypt's most impressive archaeological sites.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⏱️</div>
+                                <h4>2-3 Days</h4>
+                                <p>Extended journey</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏛️</div>
+                                <h4>Abu Simbel</h4>
+                                <p>Temple tours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Nile Cruising Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" th:style="'background:url(/images/2022_7_21_0_26_4_929.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Sunset Sailing</h4>
+                    <p>Golden hour on Nile</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/2022_7_21_0_50_14_793.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Traditional Felucca</h4>
+                    <p>Wooden sailboats</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/2022_7_21_0_53_22_912.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Luxury Dahabiya</h4>
+                    <p>Elegant cruise ships</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/2022_7_21_0_31_20_557.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Temple Views</h4>
+                    <p>Ancient monuments</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/2022_7_21_18_8_20_881.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Riverside Life</h4>
+                    <p>Traditional villages</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Practical Information -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Cruise Travel Guide</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="cruise-card">
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">🕐 Best Time to Cruise</h3>
+                        <p><strong>October to April:</strong> Perfect weather, pleasant temperatures.</p>
+                        <p><strong>May to September:</strong> Hot weather, fewer crowds.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Book cruises in advance, especially during peak season.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cruise-card">
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">🎫️ Cruise Types</h3>
+                        <p><strong>Feluccas:</strong> Traditional, budget-friendly.</p>
+                        <p><strong>Dahabiyas:</strong> Luxury, all-inclusive.</p>
+                        <p><strong>Day Cruises:</strong> Short excursions.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Choose based on comfort level and budget.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cruise-card">
+                    <div class="cruise-content">
+                        <h3 class="cruise-title">📸 Photography Tips</h3>
+                        <p><strong>Golden Hour:</strong> Best lighting for river shots.</p>
+                        <p><strong>Temple Views:</strong> Capture ancient monuments from water.</p>
+                        <p><strong>Rural Life:</strong> Document traditional scenes.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Bring zoom lens for distant temple details.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container text-center">
+        <h2>Sail the Legendary Nile</h2>
+        <p class="lead">Experience Egypt's timeless river journeys</p>
+        <div class="nav__actions" style="justify-content: center; margin-top: 30px;">
+            <a th:href="@{/what-to-do}" class="button">Water Activities</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

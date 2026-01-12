@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="'Cairo — Old Cairo Guide'">Cairo — Old Cairo Guide</title>
+    <meta name="description" content="Old Cairo: Coptic Cairo, Khan el-Khalili, Historic Cairo routes and tips." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <style>
+        .heart-btn {
+            border: none;
+            background: none;
+            color: #e63946;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .heart-btn:hover { transform: scale(1.2); }
+
+        .star-rating button {
+            border: none;
+            background: none;
+            font-size: 1.5em;
+            color: #f4c150;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .star-rating button:hover { transform: scale(1.2); }
+    </style>
+</head>
+
+<body>
+<!-- ===== Header ===== -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/cities}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" ></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/cities}">Cities</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+        </div>
+    </div>
+</header>
+
+<!-- ===== Hero Section ===== -->
+<main>
+    <section class="hero">
+        <div class="hero__surface"></div>
+        <div class="container hero__content">
+            <div>
+                <span class="eyebrow">Cairo</span>
+                <h1>Old Cairo</h1>
+                <p class="lead">
+                    Coptic sites, medieval lanes, and souqs — walk the layers of history.
+                </p>
+            </div>
+            <div class="hero__media"
+                 role="img"
+                 aria-label="Old Cairo"
+                 th:style="'background:url(' + @{/images/cairocairo.jpg} + ') center/cover no-repeat;'">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Routes Section ===== -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Suggested Routes</h2>
+            <ul>
+                <li>Coptic Cairo loop: Hanging Church → Coptic Museum → Ben Ezra Synagogue</li>
+                <li>Historic Cairo: Bab Zuweila → Al-Muizz Street → Khan el-Khalili</li>
+                <li>Citadel & Mosques: Citadel → Sultan Hassan → Al-Rifa’i</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== Tips Section ===== -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Tips</h2>
+            <ul>
+                <li>Go early; midday gets crowded around souqs</li>
+                <li>Modest dress for religious sites</li>
+                <li>Carry cash for small shops</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== Gallery Section ===== -->
+    <!-- Alert Messages -->
+    <div class="container" style="padding-top: 20px;">
+        <div th:if="${successMessage}" class="alert alert-success" role="alert"
+             style="padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; margin-bottom: 20px;">
+            <p th:text="${successMessage}"></p>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger" role="alert"
+             style="padding: 15px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px; margin-bottom: 20px;">
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </div>
+
+    <!-- Featured Mosques -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Featured Old Cairo</h2>
+
+            <div class="grid grid--cards">
+                <article class="card" th:each="old : ${oldCairos}" th:if="${old != null}">
+                    <div class="card__media"
+                         role="img"
+                         th:aria-label="${old.title}"
+                         th:style="'background:url(' + ${old.imageUrl} + ') center/cover no-repeat;'">
+                    </div>
+
+                    <div class="card__body">
+                        <h3 class="card__title" th:text="${old.title}"></h3>
+                        <div class="card__meta" th:text="${old.metaData}"></div>
+
+                        <!-- Favorite Button -->
+                        <div th:if="${user != null}">
+                            <form th:action="@{'/add2/' + ${user.username} + '/' + ${old.id}}" method="post" style="display:inline;">
+                                <button type="submit" class="heart-btn" aria-label="Add to favorites">
+                                    <i class="fa fa-heart"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div th:if="${user == null}">
+                            <a th:href="@{/login}" class="heart-btn" aria-label="Login to add favorites">
+                                <i class="fa fa-heart"></i>
+                            </a>
+                        </div>
+
+                        <div class="star-rating" th:if="${user != null}">
+                            <span>Rate: </span>
+                            <button type="button"
+                                    th:data-username="${user.username}"
+                                    th:data-old="${old.id}"
+                                    data-value="1" onclick="submitRating(this)">☆</button>
+                            <button type="button"
+                                    th:data-username="${user.username}"
+                                    th:data-old="${old.id}"
+                                    data-value="2" onclick="submitRating(this)">☆</button>
+                            <button type="button"
+                                    th:data-username="${user.username}"
+                                    th:data-old="${old.id}"
+                                    data-value="3" onclick="submitRating(this)">☆</button>
+                            <button type="button"
+                                    th:data-username="${user.username}"
+                                    th:data-old="${old.id}"
+                                    data-value="4" onclick="submitRating(this)">☆</button>
+                            <button type="button"
+                                    th:data-username="${user.username}"
+                                    th:data-old="${old.id}"
+                                    data-value="5" onclick="submitRating(this)">☆</button>
+                        </div>
+
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+<script>
+    function submitRating(button) {
+        const username = button.getAttribute('data-username');
+        const oldId = button.getAttribute('data-old');
+        const ratingValue = button.getAttribute('data-value');
+
+        const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+        fetch('/rate-old', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                [csrfHeader]: csrfToken
+            },
+            body: `username=${encodeURIComponent(username)}&oldId=${encodeURIComponent(oldId)}&ratingValue=${encodeURIComponent(ratingValue)}`
+        })
+            .then(response => {
+                if(response.ok) {
+                    alert('Rating saved!');
+
+                } else {
+                    alert('you are rate once');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>

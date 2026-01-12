@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExploreuHub-The Grand Egyptian Museum</title>
+    <!--css file for styles-->
+    <link rel="stylesheet" th:href="@{/assets/css/mstyles.css}">
+    <!--render all elements normally-->
+    <link rel="stylesheet" th:href="@{/assets/css/normalize.css}">
+    <!--all files for css-->
+    <link rel="stylesheet" th:href="@{/assets/css/all.css}">
+    <!--font awosome library for css-->
+    <link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+    <div class="container">
+        <img class="logo" src="images/greatmuseum.png" alt="The Egyptian Museum">
+        <!-- Desktop Links -->
+        <div class="desktop-links">
+            <a th:href="@{/photos}" style="text-decoration:none;">Photos</a>
+            <a href="#groups">Archaeological Groups</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="theme-icon" id="themeIcon">🌙</span>
+        </button>
+
+        <!-- Hamburger Icon -->
+        <div class="hamburger" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Mobile Menu -->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a th:href="@{/photos}">Photos</a></li>
+            <li><a href="#groups">Archaeological Groups</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+    </div>
+</div>
+
+
+
+<!--start landing section-->
+<div class="landing" >
+
+    <!-- background layers -->
+    <div class="bg-layer bg1"></div>
+    <div class="bg-layer bg2"></div>
+    <div class="bg-layer bg3"></div>
+
+    <!-- content -->
+    <div class="intro-text">
+        <h1>
+            <span style="color:red;">T</span>h<span style="color:black;">e</span>
+            <span style="color:red;">G</span>ran<span style="color:black;">d</span>
+            <span style="color:red;">E</span>gyptia<span style="color:black;">n</span>
+            <span style="color:red;">M</span>useu<span style="color:black;">m</span>
+        </h1>
+        <p class="intro-paragraph">
+            WELCOME TO THE EGYPTIAN MUSEUM IN CAIRO (EMC)
+            Discover the world's largest collection of Egyptian antiquities
+        </p>
+    </div>
+
+</div>
+
+<!--end landing section-->
+<!--start features-->
+<div class="features">
+    <div class="container">
+        <div class="aboutImg">
+            <img src="/images/A1.webp" alt="Egyptian Museum">
+        </div>
+        <div class="aboutImg">
+            <img src="/images/A2.webp" alt="Egyptian Museum">
+        </div>
+        <div class="aboutImg">
+            <img src="/images/A3.webp" alt="Egyptian Museum">
+        </div>
+        <div class="aboutImg">
+            <img src="/images/A4.webp" alt="Egyptian Museum">
+        </div>
+    </div>
+</div>
+<!--end features-->
+
+<!--start services-->
+<div class="services" id="groups">
+    <div class="container">
+        <h2 class="special-heading">Archaeological Groups</h2>
+        <p>Treasures of GEM</p>
+        <p class="ah">Experience the glories of ancient Egypt by exploring GEM collections dating from the Prehistoric until the Roman Period.
+            Each artefact’s story reveals a unique aspect of the ancient Egyptian civilisation.</p>
+
+        <div class="gallery" id="gallery"></div>
+    </div>
+</div>
+<!--end servises-->
+
+<!--start about part-->
+<div class="about" id="about">
+    <div class="container">
+        <h2 class="special-heading">About</h2>
+        <p>About The Grand Egyptian Museum</p>
+        <div class="about-content">
+            <div class="image">
+                <img src="/images/GM.jpg" alt="About Image" >
+            </div>
+            <div class="text">
+                <p>In January of 2002, the Egyptian government announced a worldwide competition for the design of a new museum complex to
+                    house, display, and preserve some of the world’s greatest ancient treasures with which the modern country of Egypt has
+                    the privilege of being entrusted.
+
+                    The following month, a ceremonial foundation stone was laid at the site selected for the new project, a site only two
+                    kilometers away from Egypt’s greatest monuments and the only remaining wonder of the ancient world – the Pyramids of
+                    Giza.
+
+                    In 2003, the winner of the architectural design competition was announced at a press conference in Cairo, with the Irish
+                    firm Heneghan Peng Architects securing the contract to turn their ultra-modern concept into the new Grand Egyptian
+                    Museum.
+
+                    Construction on the new museum began in earnest in 2005, but setbacks of environmental, financial, and political natures
+                    soon beset the ambitious project and monumental delays ensued.
+
+                    As the outbreak of the Arab Spring reached Egypt in early 2011, work on the project ground to a halt as the country
+                    experienced several years of unfortunate political instability and uncertainty. Tourism to Egypt also dwindled during
+                    these years, drying up the government’s coffers and jeopardizing the grand new museum’s future.
+
+                    But following the restabilization of the government in 2014 and the preservation of that stability ever since, the
+                    project soon got back on track and construction resumed with the help of international loans to cover the financial
+                    shortfalls caused by the lingering effects of the tourism downturn.
+
+                    When the Grand Egyptian Museum fully opens to the public in mid-2024 (estimated), it will be the largest archaeological
+                    museum complex in the world and host to more than 100,000 artifacts. For the first time ever, King Tut’s entire treasure
+                    collection will be on display alongside artifacts from pre-historic times through Egypt’s many thousands of years of
+                    pharaonic civilization through the [comparatively] more modern ancient Greek and Roman periods of Egyptian history.
+
+                    While the Egyptian government has previously announced that the GEM will open its doors to the general public in 2018
+                    and again in 2019, we cautioned at the time that those opening dates were very likely to change. Now, however, we
+                    believe that the mid-2024 target is likely to be met.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end about part-->
+<!--start contact-->
+<div class="contact" id="contact">
+    <div class="container">
+        <h2 class="special-heading">contact</h2>
+        <p>we are born to create </p>
+        <div class="info">
+            <img class="logo" src="images/grandMlogo.png">
+
+        </div>
+    </div>
+</div>
+</div>
+<!--end contact-->
+
+
+<!--script-->
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active'); // animate hamburger
+        mobileMenu.classList.toggle('show');   // show/hide mobile menu
+      });
+
+    //details script
+    const artifacts = [
+      { id: 1, title: "Khufu's Boats Museum", shortDesc: "The funerary complex of the Great Pyramid of King Khufu at Giza...", image: "/images/khufu boat.jpg", description: "The funerary complex of the Great Pyramid of King Khufu at Giza yielded five boat pits, of which three empty pits were discovered outside the mortuary temple of the pyramid and to the north of its causeway.In 1954, while clearing the sand and debris that had accumulated opposite the southern side of the pyramid, two sealed pits were discovered, inside which were found the dismantled wood of King Khufu's boats.The first boat was discovered buried in a pit under limestone blocks.It took more than 10 years to reassemble the first boat, which is a huge wooden structure with a total length of 42.32 meters.Several plans to relocate the boat were proposed since the 1970s, but concerns over the risks of dismantling it prevented execution.In 2019, a decision was made to transport the entire boat intact to the Grand Egyptian Museum, following extensive engineering and archaeological studies to ensure its safety during the move.Preparations included reinforcing the transport platform, constructing a large protective steel structure, performing precise conservation and sterilization work, and running simulation tests using a specialized smart vehicle", period: "New Kingdom, 18th Dynasty (c. 1330 BCE)", origin: "Thebes, Egypt" },
+      { id: 2, title: "Statuette of a Falcon", shortDesc: "This gilt bronze votive statuette of a hawk was discovered in...", image: "/images/StatuetteofFalcon.jpg", description: "This gilt bronze votive statuette of a hawk was discovered in 1893 at Sais(Sa- al - Hagar) in the western Delta and is dated to Dynasty 26. The statuette was made using the lost - wax technique in which a wax model was enclosed in clay and allowed to dry.The wax was then melted before the molten metal was poured into the resulting clay mould.Gold was used here to highlight the falcon’s head, plumage and jewellery.The statuette shows the avian form of god Horus, who was associated with kingship, wearing a crown(now partly broken) and a broad gilded collar ending in a solar - heart amulet.This amulet was probably used by ancient Egyptian kings as an attribute of god Horus, therefore, indicating the divine status of the king.The solar disk above the heart identified the king’s heart with the sun and may have signalled his ability to maintain maat(justice) in the same way the sun illuminated the universe.Such votive statuettes were donated to the temple to honour its deities.The gilded dedicatory text on the base of the statuette names a certain Imhotep, son of Padineith.By naming the dedicant in the inscription, he could magically participate in the daily temple rituals that common people were not allowed to attend", period: "Hellenistic Period (c. 200 BCE)", origin: "Athens, Greece" },
+      { id: 3, title: "The Golden Burial Mask of Tutankhamun", shortDesc: "This mask of solid gold is one of the most famous objects in the world...", image: "/images/Tutankhamunmask.jpg", description: "This mask of solid gold is one of the most famous objects in the world. It was found placed over the head and shoulders of Tutankhamun’s mummified remains.  The king is made to look like the god Osiris, ruler of the underworld, and the sun god Re whose body was made of gold and hair of lapis lazuli. At the same time, this is a perfect version of Tutankhamun’s face, recognisable from his coffins, statues and temple reliefs. An inscription on the back provides further protection by identifying parts of the mask with different gods ‘Your forehead is Anubis, your right eye is the night boat (of Re), your left eye is the day boat, your eyebrows are in the company of nine gods’.", period: "Qin Dynasty (c. 210 BCE)", origin: "Xi'an, China" },
+      { id: 4, title: "Golden Throne", shortDesc: "This beautifully decorated armchair was found wrapped in linen in the Antechamber...", image: "/images/GoldenThrone.webp", description: "This beautifully decorated armchair was found wrapped in linen in the Antechamber. It is made of wood covered with sheets of gold that are both chased (pattern pressed into the metal) and inlaid with glass, faience and semi-precious stones. Side panels are formed from winged uraeus snakes holding the king’s cartouche. The scene on the front of backrest shows the king and queen under a floral canopy pierced by the rays of the Aten sun disk. Although adult-sized, this armchair must date from the beginning of Tutankhamun’s reign.", period: "Classic Period (c. 600 CE)", origin: "Palenque, Mexico" },
+      { id: 5, title: "Grand Hall", shortDesc: "Unrivaled in the ancient world, colossal statues are among the most...", image: "/images/GrandHall.jpeg", description: "Unrivaled in the ancient world, colossal statues are among the most distinctive phenomena in ancient Egypt. Through the quarrying and fashioning of these gigantic monoliths, the ancient Egyptians showed veneration to their divinised rulers. Royal colossi possibly also played the role of active intermediaries between mankind and the gods. Stand at the feet of awe-inspiring royal colossi in the Grand Hall, a dramatic space where visitors are first welcomed before they begin their tour to the Grand Egyptian Museum.", period: "Roman Empire (c. 100 BCE)", origin: "Pompeii, Italy" },
+      { id: 6, title: "This painted wooden statue belongs to Mitri who held many important titles  during Dynasty 5...", shortDesc: "Carved dragon head from a Norse ship.", image: "/images/StatueofMitri.jpeg", description: "This painted wooden statue belongs to Mitri who held many important titles  during Dynasty 5. The statue shows him sitting in the traditional pose of an Egyptian scribe with his legs crossed and a roll of papyrus partly unrolled on his lap. He wears a short kilt and a broad collar. His thoughtful face is framed by short hair and he has magnetic eyes made with inlaid stone. Mitri’s name and titles are written on the statue base. Some of his titles include 'Nome Administrator', 'Priest of the goddess Maat' and 'Overseer of Scribes'.", period: "Viking Age (c. 900 CE)", origin: "Oslo, Norway" }
+    ];
+
+    const gallery = document.getElementById('gallery');
+
+    artifacts.forEach(artifact => {
+      const card = document.createElement('a');
+      card.href = `/details?id=${artifact.id}`;
+      card.className = 'card';
+      card.innerHTML = `
+          <img src="${artifact.image}" alt="${artifact.title}">
+          <div class="card-content">
+            <h3>${artifact.title}</h3>
+            <p>${artifact.shortDesc}</p>
+          </div>
+        `;
+      gallery.appendChild(card);
+    });
+
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+      } else {
+        themeIcon.textContent = '🌙';
+      }
+    }
+
+</script>
+
+</body>
+</html>

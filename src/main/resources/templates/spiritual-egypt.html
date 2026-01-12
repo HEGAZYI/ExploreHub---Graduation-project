@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spiritual Egypt — ExploreHub</title>
+    <meta name="description" content="Discover Egypt's spiritual heritage: Islamic mosques, Coptic churches, ancient temples, and sacred sites." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        .spiritual-hero {
+            background: linear-gradient(rgba(13,71,161,0.9), rgba(25,118,210,0.7)), url('/images/2022_10_2_19_12_0_904.jpg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(124, 100, 100);
+            padding: 120px 0;
+            text-align: center;
+        }
+        .spiritual-description {
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        .spiritual-card {
+            background: linear-gradient(145deg, #1e3a8a 0%, #2196f3 100%);
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+        .spiritual-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+        .spiritual-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .spiritual-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+        .spiritual-content {
+            padding: 30px;
+        }
+        .spiritual-title {
+            font-size: 1.8em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-item {
+            background: linear-gradient(145deg, #e3f2fd 0%, #ffffff 100%);
+            border: 1px solid #9c27b0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.1);
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #9c27b0;
+            text-shadow: 0 2px 4px rgba(33,150,243,0.1);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: rgb(78, 66, 66);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        .spiritual-stats {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+        .experience-box {
+            background: linear-gradient(145deg, #f3e5f5 0%, #ffffff 100%);
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(227,160,26,0.1);
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" alt="ExploreHub Logo"></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/cities}">Cities</a>
+            <a th:href="@{/archaeological-sites}">Archaeological Sites</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="spiritual-hero">
+    <div class="container">
+        <h1>Spiritual Egypt</h1>
+        <p class="lead">A journey through faith and history</p>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="section">
+    <div class="container">
+        <div class="spiritual-description">
+            <h2>Egypt's Sacred Heritage</h2>
+            <p>Egypt's spiritual landscape is a rich tapestry woven from thousands of years of religious devotion, architectural marvels, and sacred traditions. From the majestic mosques of Islamic Cairo to the ancient Coptic monasteries of the desert, from the pharaonic temples that evolved into places of worship to the modern churches that coexist with mosques, Egypt's spiritual heritage offers a profound journey into the soul of one of the world's most ancient civilizations.</p>
+            
+            <div class="spiritual-stats">
+                <h3>Spiritual Heritage Statistics</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🕌</div>
+                        <h4>1000+ Mosques</h4>
+                        <p>Islamic heritage</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⛪</div>
+                        <h4>200+ Churches</h4>
+                        <p>Coptic tradition</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏛️</div>
+                        <h4>50+ Monasteries</h4>
+                        <p>Desert sanctuaries</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌍</div>
+                        <h4>UNESCO Sites</h4>
+                        <p>Sacred locations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Islamic Heritage -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Islamic Heritage Sites</h2>
+        <div class="row">
+            
+            <!-- Al-Azhar Mosque -->
+            <div class="col-md-6">
+                <div class="spiritual-card">
+                    <div class="spiritual-image" th:style="'background:url(/images/alazhar.jpg) center/cover'">
+                        <div class="spiritual-badge">World Heritage</div>
+                    </div>
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">Al-Azhar Mosque (Cairo)</h3>
+                        <p class="spiritual-description">One of the world's oldest universities and most influential Islamic centers, founded in 970 AD. This architectural masterpiece features stunning minarets, courtyards, and Islamic libraries that have educated scholars for over a millennium.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">📚</div>
+                                <h4>Ancient University</h4>
+                                <p>1,000+ years of learning</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🕌</div>
+                                <h4>Islamic Library</h4>
+                                <p>Rare manuscripts</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏛️</div>
+                                <h4>Architecture</h4>
+                                <p>Mamluk design</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/cairo}" class="button">Visit Al-Azhar</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sultan Hassan Mosque -->
+            <div class="col-md-6">
+                <div class="spiritual-card">
+                    <div class="spiritual-image" th:style="'background:url(/images/sultan-hassan.jpg) center/cover'">
+                        <div class="spiritual-badge">Mamluk Masterpiece</div>
+                    </div>
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">Sultan Hassan Mosque (Cairo)</h3>
+                        <p class="spiritual-description">A magnificent example of Mamluk architecture, built in the 14th century. This mosque features one of Egypt's tallest minarets, stunning marble interiors, and innovative design that influenced Islamic architecture across the region.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🏗️</div>
+                                <h4>Tall Minaret</h4>
+                                <p>Architectural wonder</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🎨</div>
+                                <h4>Marble Interior</h4>
+                                <p>Luxurious design</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🕌</div>
+                                <h4>Mamluk Style</h4>
+                                <p>Medieval excellence</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/cairo}" class="button">Visit Sultan Hassan</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Muhammad Ali Mosque -->
+            <div class="col-md-6">
+                <div class="spiritual-card">
+                    <div class="spiritual-image" th:style="'background:url(/images/citadel-mosque.jpg) center/cover'">
+                        <div class="spiritual-badge">Ottoman Legacy</div>
+                    </div>
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">Muhammad Ali Mosque (Cairo)</h3>
+                        <p class="spiritual-description">Perched atop Cairo's citadel, this Ottoman-era mosque offers panoramic city views and exquisite Islamic architecture. Its alabaster interior and copper dome make it one of Egypt's most photographed religious sites.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🏔️</div>
+                                <h4>Citadel Views</h4>
+                                <p>Panoramic cityscape</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">💎</div>
+                                <h4>Alabaster</h4>
+                                <p>Precious interior</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🕌</div>
+                                <h4>Ottoman Design</h4>
+                                <p>Turkish influence</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/cairo}" class="button">Visit Muhammad Ali</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Coptic Heritage -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Coptic Christian Heritage</h2>
+        <div class="row">
+            
+            <!-- Hanging Church -->
+            <div class="col-md-6">
+                <div class="spiritual-card">
+                    <div class="spiritual-image" th:style="'background:url(/images/2022_7_21_18_57_29_773.jpeg) center/cover'">
+                        <div class="spiritual-badge">Ancient Wonder</div>
+                    </div>
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">Hanging Church (Cairo)</h3>
+                        <p class="spiritual-description">One of Egypt's most remarkable Christian sites, this church appears to be suspended between two ancient towers. Built in the 3rd century, it represents the flight of the Holy Family to Egypt and showcases early Coptic architecture and faith.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⛪</div>
+                                <h4>Ancient Engineering</h4>
+                                <p>Architectural marvel</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">📜</div>
+                                <h4>Byzantine Art</h4>
+                                <p>Early Christian icons</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🙏</div>
+                                <h4>Holy Family</h4>
+                                <p>Biblical significance</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/cairo}" class="button">Visit Hanging Church</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saint Mark's Cathedral -->
+            <div class="col-md-6">
+                <div class="spiritual-card">
+                    <div class="spiritual-image" th:style="'background:url(/images/2022_7_21_18_57_29_773.jpeg) center/cover'">
+                        <div class="spiritual-badge">Patriarchal Seat</div>
+                    </div>
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">Saint Mark's Cathedral (Alexandria)</h3>
+                        <p class="spiritual-description">The historic seat of the Coptic Orthodox Pope, this cathedral combines Byzantine traditions with modern Egyptian elements. Built on the site where Saint Mark the Evangelist brought Christianity to Egypt, it remains the spiritual heart of Egyptian Christianity.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⛪</div>
+                                <h4>Papal History</h4>
+                                <p>Patriarchal lineage</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🎨</div>
+                                <h4>Byzantine Mosaics</h4>
+                                <p>Ancient artwork</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🕌</div>
+                                <h4>Modern Architecture</h4>
+                                <p>Contemporary design</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/red-sea}" class="button">Visit St. Mark's</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Monasteries -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Desert Monasteries</h2>
+        <div class="row">
+            
+            <!-- Saint Anthony's Monastery -->
+            <div class="col-md-6">
+                <div class="spiritual-card">
+                    <div class="spiritual-image" th:style="'background:url(/images/Desert-Monasteries.jpg) center/cover'">
+                        <div class="spiritual-badge">Christian Heritage</div>
+                    </div>
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">Saint Anthony's Monastery</h3>
+                        <p class="spiritual-description">One of the world's oldest Christian monasteries, founded in the 4th century in the Eastern Desert. This spiritual sanctuary preserves ancient Coptic traditions and offers visitors a glimpse into early Christian monastic life.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">⛪</div>
+                                <h4>4th Century</h4>
+                                <p>Ancient origins</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏛️</div>
+                                <h4>Monastic Life</h4>
+                                <p>Traditional practices</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">📜</div>
+                                <h4>Coptic Art</h4>
+                                <p>Sacred manuscripts</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/red-sea}" class="button">Visit St. Anthony's</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saint Paul's Monastery -->
+            <div class="col-md-6">
+                <div class="spiritual-card">
+                    <div class="spiritual-image" th:style="'background:url(/images/Desert-Monasteries.jpg) center/cover'">
+                        <div class="spiritual-badge">Spiritual Retreat</div>
+                    </div>
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">Saint Paul's Monastery</h3>
+                        <p class="spiritual-description">Founded by followers of Saint Anthony, this monastery continues the tradition of early Christian monasticism. Its remote desert location provides perfect conditions for prayer, meditation, and spiritual contemplation.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🏜️</div>
+                                <h4>Desert Spirituality</h4>
+                                <p>Peaceful isolation</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">📖</div>
+                                <h4>Biblical Studies</h4>
+                                <p>Religious scholarship</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌅</div>
+                                <h4>Sunset Views</h4>
+                                <p>Desert beauty</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/red-sea}" class="button">Visit St. Paul's</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Sacred Sites Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" th:style="'background:url(/images/minarets.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Cairo Minarets</h4>
+                    <p>Islamic skyline</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/coptic-area.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Coptic Quarter</h4>
+                    <p>Christian heritage</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/Prayer-halls.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Mosque Interiors</h4>
+                    <p>Sacred spaces</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/2022_7_21_18_57_29_773.jpeg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Monastery Architecture</h4>
+                    <p>Desert sanctuaries</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/citadel-wall.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Sacred Architecture</h4>
+                    <p>Religious monuments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Practical Information -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Spiritual Travel Guide</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="spiritual-card">
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">🕌 Best Time to Visit</h3>
+                        <p><strong>October to April:</strong> Perfect weather, fewer crowds.</p>
+                        <p><strong>May to September:</strong> Hot weather, early morning visits recommended.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Respect prayer times and dress modestly when visiting religious sites.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="spiritual-card">
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">👕 Dress Code</h3>
+                        <p><strong>Mosques:</strong> Modest dress, remove shoes before entering.</p>
+                        <p><strong>Churches:</strong> Conservative attire, cover shoulders.</p>
+                        <p><strong>Monasteries:</strong> Respectful clothing, quiet behavior.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Carry a scarf for women to cover hair when needed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="spiritual-card">
+                    <div class="spiritual-content">
+                        <h3 class="spiritual-title">📸 Photography Guidelines</h3>
+                        <p><strong>Religious Sites:</strong> Always ask permission before photographing.</p>
+                        <p><strong>During Services:</strong> No photography usually permitted.</p>
+                        <p><strong>Exterior Shots:</strong> Best during golden hour.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Be respectful and discreet when photographing sacred spaces.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container text-center">
+        <h2>Discover Egypt's Spiritual Heritage</h2>
+        <p class="lead">A journey through faith and history</p>
+        <div class="nav__actions" style="justify-content: center; margin-top: 30px;">
+            <a th:href="@{/what-to-do}" class="button">Cultural Activities</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

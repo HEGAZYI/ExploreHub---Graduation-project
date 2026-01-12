@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leon templete one</title>
+    <!--css file for styles-->
+    <link rel="stylesheet" th:href="@{/assets/css/mstyles.css}">
+    <!--render all elements normally-->
+    <link rel="stylesheet" th:href="@{/assets/css/normalize.css}">
+    <!--all files for css-->
+    <link rel="stylesheet" th:href="@{/assets/css/all.css}">
+    <!--font awosome library for css-->
+    <link rel="stylesheet" th:href="@{/assets/css/all.min.css}">
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        .photos-gallery {
+        padding: 80px 8%;
+        background: #111;
+        color: white;
+        text-align: center;
+        }
+
+        .photos-gallery h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+        }
+
+        .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        }
+
+        .photo {
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        cursor: pointer;
+        transition: transform 0.3s, filter 0.3s;
+        }
+
+        .photo img {
+        width: 100%;
+        height:500px;
+        display: block;
+        object-fit: cover;
+        transition: transform 0.3s;
+        }
+
+        .photo:hover img {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+        }
+
+        /* Hidden extra photos */
+        .photo.extra {
+        display: none;
+        }
+
+        #showMoreBtn {
+        margin-top: 30px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 30px;
+        background: #cfa24a;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s, background 0.3s;
+        }
+
+        #showMoreBtn:hover {
+        background: #ffd700;
+        transform: scale(1.05);
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <div class="container">
+        <img class="logo" src="images/greatmuseum.png" alt="The Egyptian Museum">
+
+        <!-- Desktop Links -->
+        <div class="desktop-links">
+            <a th:href="@{/grandMuseum}" style="text-decoration:none;">Home</a>
+            <a href="#groups">Archaeological Groups</a>
+            <a href="#about">About</a>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="theme-icon" id="themeIcon">🌙</span>
+        </button>
+
+        <!-- Hamburger Icon -->
+        <div class="hamburger" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Mobile Menu -->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a th:href="@{/grandMuseum}" style="text-decoration:none;">Home</a></li>
+            <li><a href="#groups">Archaeological Groups</a></li>
+            <li><a href="#about">About</a></li>
+
+        </ul>
+
+    </div>
+</div>
+<!--start landing section-->
+<div class="landing">
+
+    <!-- background layers -->
+    <div class="bg-layer bg1"></div>
+    <div class="bg-layer bg2"></div>
+    <div class="bg-layer bg3"></div>
+
+    <!-- content -->
+    <div class="intro-text">
+        <h1>
+            <span style="color:red;">T</span>h<span style="color:black;">e</span>
+            <span style="color:red;">G</span>ran<span style="color:black;">d</span>
+            <span style="color:red;">E</span>gyptia<span style="color:black;">n</span>
+            <span style="color:red;">M</span>useu<span style="color:black;">m</span>
+        </h1>
+        <p class="intro-paragraph">
+            WELCOME TO THE EGYPTIAN MUSEUM IN CAIRO (EMC)
+            Discover the world's largest collection of Egyptian antiquities
+        </p>
+    </div>
+
+</div>
+<!--end landing section-->
+<!--start archaeological groups section-->
+<div class="services" id="groups">
+    <div class="container">
+        <h2 class="special-heading">Archaeological Groups</h2>
+        <p>Treasures of GEM</p>
+        <p class="ah">Experience the glories of ancient Egypt by exploring GEM collections dating from the Prehistoric
+            until the Roman Period.
+            Each artefact’s story reveals a unique aspect of the ancient Egyptian civilisation.</p>
+
+        <div class="gallery" id="gallery"></div>
+    </div>
+</div>
+<!--end archaeological groups section-->
+
+<!--start gallary section-->
+
+<section class="photos-gallery" id="about">
+    <h2>Ancient Monuments & Statues</h2>
+
+    <div class="gallery" id="photoGallery">
+        <!-- First 9 photos visible -->
+        <div class="photo"><img src="images/downloaded_images/105-1024x682.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/102-390x438.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/103-620x1214.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/104-1024x682.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/106-625x1024.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/108-1-390x438.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/11-485x335.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/12-1-390x438.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/13-1-390x438.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/34-1-620x930.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/31-1-620x930.jpg" alt=""></div>
+        <div class="photo"><img src="images/downloaded_images/13-485x335.jpg" alt=""></div>
+
+        <!-- Extra photos hidden initially -->
+        <div class="photo extra"><img src="images/downloaded_images/18-1-620x413.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/168029649_2993204760957036_6103351230831039436_n-485x335.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/19-1-390x438.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/21-1-390x438.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/23-1-620x930.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/37-1-390x438.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/42-485x335.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/26-1-620x413.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/32h.png" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/37-485x335.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/24-1-390x438.jpg" alt=""></div>
+        <div class="photo extra"><img src="images/downloaded_images/67-390x438.jpg" alt=""></div>
+    </div>
+
+    <button id="showMoreBtn">Show More...</button>
+</section>
+
+
+<!--end gallary section-->
+
+
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active'); // animate hamburger
+            mobileMenu.classList.toggle('show');   // show/hide mobile menu
+        });
+
+
+
+    const artifacts = [
+        { id: 1, title: "Khufu's Boats Museum", shortDesc: "The funerary complex of the Great Pyramid of King Khufu at Giza...", image: "/images/khufu boat.jpg", description: "The funerary complex of the Great Pyramid of King Khufu at Giza yielded five boat pits, of which three empty pits were discovered outside the mortuary temple of the pyramid and to the north of its causeway.In 1954, while clearing the sand and debris that had accumulated opposite the southern side of the pyramid, two sealed pits were discovered, inside which were found the dismantled wood of King Khufu's boats.The first boat was discovered buried in a pit under limestone blocks.It took more than 10 years to reassemble the first boat, which is a huge wooden structure with a total length of 42.32 meters.Several plans to relocate the boat were proposed since the 1970s, but concerns over the risks of dismantling it prevented execution.In 2019, a decision was made to transport the entire boat intact to the Grand Egyptian Museum, following extensive engineering and archaeological studies to ensure its safety during the move.Preparations included reinforcing the transport platform, constructing a large protective steel structure, performing precise conservation and sterilization work, and running simulation tests using a specialized smart vehicle", period: "New Kingdom, 18th Dynasty (c. 1330 BCE)", origin: "Thebes, Egypt" },
+        { id: 2, title: "Statuette of a Falcon", shortDesc: "This gilt bronze votive statuette of a hawk was discovered in...", image: "/images/StatuetteofFalcon.jpg", description: "This gilt bronze votive statuette of a hawk was discovered in 1893 at Sais(Sa- al - Hagar) in the western Delta and is dated to Dynasty 26. The statuette was made using the lost - wax technique in which a wax model was enclosed in clay and allowed to dry.The wax was then melted before the molten metal was poured into the resulting clay mould.Gold was used here to highlight the falcon’s head, plumage and jewellery.The statuette shows the avian form of god Horus, who was associated with kingship, wearing a crown(now partly broken) and a broad gilded collar ending in a solar - heart amulet.This amulet was probably used by ancient Egyptian kings as an attribute of god Horus, therefore, indicating the divine status of the king.The solar disk above the heart identified the king’s heart with the sun and may have signalled his ability to maintain maat(justice) in the same way the sun illuminated the universe.Such votive statuettes were donated to the temple to honour its deities.The gilded dedicatory text on the base of the statuette names a certain Imhotep, son of Padineith.By naming the dedicant in the inscription, he could magically participate in the daily temple rituals that common people were not allowed to attend", period: "Hellenistic Period (c. 200 BCE)", origin: "Athens, Greece" },
+        { id: 3, title: "The Golden Burial Mask of Tutankhamun", shortDesc: "This mask of solid gold is one of the most famous objects in the world...", image: "/images/Tutankhamunmask.jpg", description: "This mask of solid gold is one of the most famous objects in the world. It was found placed over the head and shoulders of Tutankhamun’s mummified remains.  The king is made to look like the god Osiris, ruler of the underworld, and the sun god Re whose body was made of gold and hair of lapis lazuli. At the same time, this is a perfect version of Tutankhamun’s face, recognisable from his coffins, statues and temple reliefs. An inscription on the back provides further protection by identifying parts of the mask with different gods ‘Your forehead is Anubis, your right eye is the night boat (of Re), your left eye is the day boat, your eyebrows are in the company of nine gods’.", period: "Qin Dynasty (c. 210 BCE)", origin: "Xi'an, China" },
+        { id: 4, title: "Golden Throne", shortDesc: "This beautifully decorated armchair was found wrapped in linen in the Antechamber...", image: "/images/GoldenThrone.webp", description: "This beautifully decorated armchair was found wrapped in linen in the Antechamber. It is made of wood covered with sheets of gold that are both chased (pattern pressed into the metal) and inlaid with glass, faience and semi-precious stones. Side panels are formed from winged uraeus snakes holding the king’s cartouche. The scene on the front of backrest shows the king and queen under a floral canopy pierced by the rays of the Aten sun disk. Although adult-sized, this armchair must date from the beginning of Tutankhamun’s reign.", period: "Classic Period (c. 600 CE)", origin: "Palenque, Mexico" },
+        { id: 5, title: "Grand Hall", shortDesc: "Unrivaled in the ancient world, colossal statues are among the most...", image: "/images/GrandHall.jpeg", description: "Unrivaled in the ancient world, colossal statues are among the most distinctive phenomena in ancient Egypt. Through the quarrying and fashioning of these gigantic monoliths, the ancient Egyptians showed veneration to their divinised rulers. Royal colossi possibly also played the role of active intermediaries between mankind and the gods. Stand at the feet of awe-inspiring royal colossi in the Grand Hall, a dramatic space where visitors are first welcomed before they begin their tour to the Grand Egyptian Museum.", period: "Roman Empire (c. 100 BCE)", origin: "Pompeii, Italy" },
+        { id: 6, title: "This painted wooden statue belongs to Mitri who held many important titles  during Dynasty 5...", shortDesc: "Carved dragon head from a Norse ship.", image: "/images/StatueofMitri.jpeg", description: "This painted wooden statue belongs to Mitri who held many important titles  during Dynasty 5. The statue shows him sitting in the traditional pose of an Egyptian scribe with his legs crossed and a roll of papyrus partly unrolled on his lap. He wears a short kilt and a broad collar. His thoughtful face is framed by short hair and he has magnetic eyes made with inlaid stone. Mitri’s name and titles are written on the statue base. Some of his titles include 'Nome Administrator', 'Priest of the goddess Maat' and 'Overseer of Scribes'.", period: "Viking Age (c. 900 CE)", origin: "Oslo, Norway" }
+    ];
+
+    const gallery = document.getElementById('gallery');
+
+    artifacts.forEach(artifact => {
+        const card = document.createElement('a');
+        card.href = `/details?id=${artifact.id}`;
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${artifact.image}" alt="${artifact.title}">
+            <div class="card-content">
+            <h3>${artifact.title}</h3>
+            <p>${artifact.shortDesc}</p>
+            </div>
+        `;
+        gallery.appendChild(card);
+    });
+
+
+    // gallery script
+    const showMoreBtn = document.getElementById('showMoreBtn');
+    const extraPhotos = document.querySelectorAll('.photo.extra');
+
+    showMoreBtn.addEventListener('click', () => {
+                extraPhotos.forEach(photo => photo.style.display = 'block');
+            showMoreBtn.style.display = 'none'; // hide the button after clicking
+    });
+
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+        if (theme === 'dark') {
+            themeIcon.textContent = '☀️';
+        } else {
+            themeIcon.textContent = '🌙';
+        }
+    }
+
+</script>
+</body>
+</html>

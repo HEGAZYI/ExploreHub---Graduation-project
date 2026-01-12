@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecotourism & Nature — ExploreHub</title>
+    <meta name="description" content="Discover Egypt's ecotourism initiatives, protected nature reserves, and sustainable tourism practices that preserve Egypt's natural heritage." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        .eco-hero {
+            background: linear-gradient(rgba(13,71,161,0.9), rgba(25,118,210,0.7)), url('/images/2022_8_7_14_39_47_843.jpg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(124, 100, 100);
+            padding: 120px 0;
+            text-align: center;
+        }
+        .eco-description {
+            line-height: 1.6;
+            color: #555;
+            margin: 20px 0;
+            font-size: 1.1em;
+        }
+        .eco-card {
+            background: linear-gradient(145deg, #1e3a8a 0%, #2196f3 100%);
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+        .eco-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+        .eco-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .eco-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+        .eco-content {
+            padding: 30px;
+        }
+        .eco-title {
+            font-size: 1.8em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+        .eco-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-item {
+            background: linear-gradient(145deg, #1e3a8a 0%, #42a5f5 100%);
+            border: 1px solid #64b5f6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.2);
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #90caf9;
+            text-shadow: 0 2px 4px rgba(33,150,243,0.3);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: rgb(78, 66, 66);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        .eco-stats {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+        .experience-box {
+            background: linear-gradient(145deg, #1e3a8a 0%, #42a5f5 100%);
+            border-left: 4px solid #0d47a1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(13,71,161,0.2);
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" ></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/cities}">Cities</a>
+            <a th:href="@{/red-sea}">Red Sea</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="eco-hero">
+    <div class="container">
+        <h1>Egypt's Ecotourism & Nature</h1>
+        <p class="lead">Protecting Natural Heritage for Future Generations</p>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="section">
+    <div class="container">
+        <div class="eco-description">
+            <h2>Egypt's Natural Heritage Conservation</h2>
+            <p>Egypt is committed to protecting its extraordinary natural heritage through innovative ecotourism initiatives that balance conservation with sustainable development. From the pristine coral reefs of the Red Sea to the unique desert ecosystems of the Western Desert, Egypt's protected areas showcase the country's biodiversity while providing economic opportunities for local communities. These initiatives ensure that Egypt's natural wonders will be preserved for future generations to enjoy.</p>
+            
+            <div class="eco-stats">
+                <h3>Conservation Statistics</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏞️</div>
+                        <h4>30+ Protected Areas</h4>
+                        <p>National reserves</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌊</div>
+                        <h4>1,200+ Species</h4>
+                        <p>Marine biodiversity</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏜️</div>
+                        <h4>30+ Oases</h4>
+                        <p>Desert sanctuaries</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌍</div>
+                        <h4>UNESCO Sites</h4>
+                        <p>World heritage locations</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏆</div>
+                        <h4>5M+ Visitors</h4>
+                        <p>Annual tourism</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Protected Areas -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Protected Natural Areas</h2>
+        <div class="row">
+            
+            <!-- Ras Mohammed National Park -->
+            <div class="col-md-6">
+                <div class="eco-card">
+                    <div class="eco-image" th:style="'background:url(/images/2022_8_7_14_31_57_32,jpg) center/cover'">
+                        <div class="eco-badge">UNESCO Heritage</div>
+                    </div>
+                    <div class="eco-content">
+                        <h3 class="eco-title">Ras Mohammed National Park</h3>
+                        <p class="eco-description">Egypt's first national park, protecting the coral reef system of the Red Sea. This underwater paradise features over 1,200 species of fish, vibrant coral gardens, and pristine beaches. The park is a global model for marine conservation and sustainable tourism.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🐠</div>
+                                <h4>Coral Reefs</h4>
+                                <p>1,000+ species</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🐠</div>
+                                <h4>Marine Life</h4>
+                                <p>Sea turtles, dolphins</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏖️</div>
+                                <h4>Snorkeling</h4>
+                                <p>World-class diving</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏖️</div>
+                                <h4>Beaches</h4>
+                                <p>Pristine waters</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌿</div>
+                                <h4>Islands</h4>
+                                <p>Giftun and Tiran</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/red-sea}" class="button">Explore Marine Park</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- White Desert National Park -->
+            <div class="col-md-6">
+                <div class="eco-card">
+                    <div class="eco-image" th:style="'background:url(/images/white-desert.jpg) center/cover'">
+                        <div class="eco-badge">Natural Wonder</div>
+                    </div>
+                    <div class="eco-content">
+                        <h3 class="eco-title">White Desert National Park</h3>
+                        <p class="eco-description">A surreal landscape of chalk rock formations sculpted by wind over millions of years. This protected area features otherworldly geological formations resembling mushrooms, chickens, and other fantastic creatures. The park is a photographer's paradise and offers unique desert camping experiences under star-filled skies.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🏜️</div>
+                                <h4>Chalk Formations</h4>
+                                <p>Wind-sculpted rocks</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏕️</div>
+                                <h4>Desert Camping</h4>
+                                <p>Under the stars</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌅</div>
+                                <h4>Sunsets</h4>
+                                <p>Golden hour magic</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/deserts}" class="button">Visit White Desert</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wadi El Rayan -->
+            <div class="col-md-6">
+                <div class="eco-card">
+                    <div class="eco-image" th:style="'background:url(/images/2022_8_7_14_34_27_230.jpg) center/cover'">
+                        <div class="eco-badge">Hidden Valley</div>
+                    </div>
+                    <div class="eco-content">
+                        <h3 class="eco-title">Wadi El Rayan Protected Area</h3>
+                        <p class="eco-description">A stunning desert valley with natural springs, lush vegetation, and traditional Bedouin communities. This protected area showcases Egypt's desert ecosystem at its most beautiful, with dramatic cliffs, natural oases, and unique cultural heritage preserved for centuries.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">💧</div>
+                                <h4>Natural Springs</h4>
+                                <p>Therapeutic waters</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌿</div>
+                                <h4>Desert Gardens</h4>
+                                <p>Oasis agriculture</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏺</div>
+                                <h4>Bedouin Culture</h4>
+                                <p>Traditional lifestyle</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/deserts}" class="button">Explore Wadi El Rayan</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Siwa Oasis Protected Area -->
+            <div class="col-md-6">
+                <div class="eco-card">
+                    <div class="eco-image" th:style="'background:url(/images/siwa-lake.jpg) center/cover'">
+                        <div class="eco-badge">Sacred Oasis</div>
+                    </div>
+                    <div class="eco-content">
+                        <h3 class="eco-title">Siwa Oasis Protected Area</h3>
+                        <p class="eco-description">Egypt's most remote and mystical oasis, home to the legendary Oracle of Amun and unique Berber culture. This protected area preserves traditional architecture, salt lakes, and ancient customs that have remained unchanged for thousands of years. The oasis is a living museum of desert traditions and sustainable practices.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🏛️</div>
+                                <h4>Oracle Temple</h4>
+                                <p>Ancient sanctuary</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏖️</div>
+                                <h4>Salt Lakes</h4>
+                                <p>Crystal waters</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌴</div>
+                                <h4>Olive Groves</h4>
+                                <p>Ancient agriculture</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏺</div>
+                                <h4>Traditional Crafts</h4>
+                                <p>Berber culture</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/deserts}" class="button">Visit Siwa Oasis</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Ecotourism Activities -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Sustainable Tourism Activities</h2>
+        <div class="row">
+            
+            <!-- Desert Safari -->
+            <div class="col-md-6">
+                <div class="eco-card">
+                    <div class="eco-image" th:style="'background:url(/images/2022_8_7_14_35_27_260.jpg) center/cover'">
+                        <div class="eco-badge">Adventure</div>
+                    </div>
+                    <div class="eco-content">
+                        <h3 class="eco-title">Desert Eco-Safari</h3>
+                        <p class="eco-description">Experience the beauty of Egypt's deserts while supporting conservation efforts. These eco-friendly safaris use solar-powered vehicles, follow designated routes to protect fragile desert ecosystems, and support local Bedouin communities through sustainable tourism practices.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🚗</div>
+                                <h4>Solar Vehicles</h4>
+                                <p>Zero emissions</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏕️</div>
+                                <h4>Guided Tours</h4>
+                                <p>Expert knowledge</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌅</div>
+                                <h4>Camping</h4>
+                                <p>Leave no trace</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌌</div>
+                                <h4>Wildlife Watching</h4>
+                                <p>Desert animals</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/adventure-outdoor}" class="button">Book Eco-Safari</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marine Conservation -->
+            <div class="col-md-6">
+                <div class="eco-card">
+                    <div class="eco-image" th:style="'background:url(/images/2022_8_7_14_38_19_286.jpg) center/cover'">
+                        <div class="eco-badge">Conservation</div>
+                    </div>
+                    <div class="eco-content">
+                        <h3 class="eco-title">Marine Conservation Tours</h3>
+                        <p>Participate in coral reef conservation and marine life protection. These educational tours support important research and conservation efforts while providing opportunities to learn about Egypt's fragile marine ecosystems and the importance of sustainable tourism.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🐠</div>
+                                <h4>Coral Monitoring</h4>
+                                <p>Reef health tracking</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌊</div>
+                                <h4>Marine Education</h4>
+                                <p>Ocean awareness</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏆</div>
+                                <h4>Sustainable Diving</h4>
+                                <p>Eco-friendly practices</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/red-sea}" class="button">Join Marine Conservation</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Oasis Agriculture -->
+            <div class="col-md-6">
+                <div class="eco-card">
+                    <div class="eco-image" th:style="'background:url(/images/palm-oasis.jpg) center/cover'">
+                        <div class="eco-badge">Sustainable Farming</div>
+                    </div>
+                    <div class="eco-content">
+                        <h3 class="eco-title">Oasis Agriculture Tours</h3>
+                        <p class="eco-description">Discover traditional oasis farming techniques that have sustained desert communities for millennia. These tours showcase sustainable agriculture practices, water conservation methods, and the importance of preserving Egypt's agricultural heritage while supporting local communities.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🌾</div>
+                                <h4>Traditional Methods</h4>
+                                <p>Time-tested techniques</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">💧</div>
+                                <h4>Water Conservation</h4>
+                                <p>Irrigation systems</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🏺</div>
+                                <h4>Organic Produce</h4>
+                                <p>Local markets</p>
+                            </div>
+                        </div>
+                        <a th:href="@{/useful-info}" class="button">Support Local Farmers</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Conservation Timeline -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Egypt's Conservation Journey</h2>
+        <div class="eco-timeline">
+            <div class="timeline-item">
+                <div class="timeline-era">1900s</div>
+                <div class="timeline-content">
+                    <h4>Early Conservation</h4>
+                    <p>First national parks established, basic wildlife protection laws.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">1950s</div>
+                <div class="timeline-content">
+                    <h4>Modern Conservation</h4>
+                    <p>UNESCO recognition and international cooperation.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">1980s</div>
+                <div class="timeline-content">
+                    <h4>Sustainable Tourism</h4>
+                    <p>Ecotourism movement gains momentum, focus on environmental protection.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">2000s</div>
+                <div class="timeline-content">
+                    <h4>Climate Action</h4>
+                    <p>Renewed commitment to environmental sustainability.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era">Present Day</div>
+                <div class="timeline-content">
+                    <h4>Green Egypt Initiative</h4>
+                    <p>Ambitious goals for sustainable development and carbon neutrality.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Natural Beauty Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" th:style="'background:url(/images/2022_8_7_14_31_18_3.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Coral Reefs</h4>
+                    <p>Underwater paradise</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/2022_8_7_14_40_37_828.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Desert Wildlife</h4>
+                    <p>Adapted animals</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/oasis-gardens.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Oasis Gardens</h4>
+                    <p>Sustainable agriculture</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/desert-lodge.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Eco-Lodges</h4>
+                    <p>Sustainable accommodation</p>
+                </div>
+            </div>
+            <div class="gallery-item" th:style="'background:url(/images/2022_8_7_14_38_19_453.jpg) center/cover'">
+                <div class="gallery-overlay">
+                    <h4>Renewable Energy</h4>
+                    <p>Clean technology</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Practical Information -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Sustainable Travel Guide</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="eco-card">
+                    <div class="eco-content">
+                        <h3 class="eco-title">🌍 Best Practices</h3>
+                        <p><strong>Choose Eco-Friendly:</strong> Look for certified eco-tourism operators.</p>
+                        <p><strong>Respect Wildlife:</strong> Keep distance from animals.</p>
+                        <p><strong>Support Local:</strong> Buy from local communities.</p>
+                        <p><strong>Reduce Waste:</strong> Bring reusable water bottles and bags.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Many eco-tourism initiatives support local conservation and community development.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="eco-card">
+                    <div class="eco-content">
+                        <h3 class="eco-title">🏖️ Protected Areas</h3>
+                        <p><strong>Stay on Paths:</strong> Follow designated trails to protect fragile ecosystems.</p>
+                        <p><strong>No Littering:</strong> Pack out everything you bring in.</p>
+                        <p><strong>Water Conservation:</strong> Use water wisely in desert areas.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Support conservation through your tourism choices.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="eco-card">
+                    <div class="eco-content">
+                        <h3 class="eco-title">🎫️ Cultural Respect</h3>
+                        <p><strong>Learn Traditions:</strong> Respect local customs and practices.</p>
+                        <p><strong>Photography Guidelines:</strong> Follow rules for wildlife photography.</p>
+                        <div class="experience-box">
+                            <strong>Pro Tip:</strong> Choose responsible tour operators who prioritize conservation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container text-center">
+        <h2>Experience Egypt's Natural Beauty Responsibly</h2>
+        <p class="lead">Discover Egypt's natural heritage while protecting it for future generations</p>
+        <div class="nav__actions" style="justify-content: center; margin-top: 30px;">
+            <a th:href="@{/what-to-do}" class="button">Eco Activities</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

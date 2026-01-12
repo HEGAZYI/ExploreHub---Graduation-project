@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deserts & Oases — ExploreHub</title>
+    <meta name="description" content="Western Desert and oases: Siwa, Bahariya, Farafra, Dakhla, Kharga; White Desert and starry skies." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        /* Dark Mode Theme */
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+        
+        .header {
+            background: #1a1a1a;
+            border-bottom: 1px solid #2d2d2d;
+        }
+        
+        .nav__links a {
+            color: #b0b0b0;
+        }
+        
+        .nav__links a:hover {
+            color: #64b5f6;
+        }
+        
+        .hero {
+            background: url('/images/2024_3_31_13_55_53_345.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .section {
+            background: #1a1a1a;
+            border-top: 1px solid #2d2d2d;
+        }
+        
+        .section__title {
+            color: #64b5f6;
+            text-shadow: 0 2px 4px rgba(100,181,246,0.3);
+        }
+        
+        .card {
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+        
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+        
+        .card-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+        
+        .card-content {
+            padding: 30px;
+        }
+        
+        .card-title {
+            font-size: 1.8em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+        
+        .card-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-item {
+            border: 1px solid #64b5f6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #90caf9;
+            text-shadow: 0 2px 4px rgba(33,150,243,0.3);
+        }
+        
+        .stats {
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            color: rgb(78, 66, 66);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .tips-box {
+            border-left: 4px solid #0d47a1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(13,71,161,0.2);
+        }
+        
+        .footer {
+            background: #1a1a1a;
+            border-top: 1px solid #2d2d2d;
+            color: #b0b0b0;
+        }
+        
+        .footer__legal {
+            color: #888;
+        }
+        
+        .button {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: white;
+            border: 1px solid #1976d2;
+        }
+        
+        .button:hover {
+            border-color: #2196f3;
+        }
+        
+        .highlight-text {
+            color: #64b5f6;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" alt="ExploreHub Logo"></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/about}">About Egypt</a>
+            <a th:href="@{/where-to-go}">Where to Go</a>
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/whats-on}">What's On</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__surface"></div>
+        <div class="container hero__content">
+            <div>
+                <span class="eyebrow">Region</span>
+                <h1>Deserts & Oases</h1>
+                <p class="lead">Vast dunes, rock formations, and palm-shaded springs in Egypt's Western Desert.</p>
+            </div>
+            <div class="hero__media" role="img" aria-label="White Desert formations"
+                 th:style="'background:url(' + @{/images/2024_3_31_13_55_53_345.jpeg} + ') center/cover no-repeat;'"></div>
+        </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Egypt's Desert Wonders</h2>
+            <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 30px;">
+                Egypt's Western Desert is a vast expanse of <span class="highlight-text">stunning landscapes</span> ranging from golden sand dunes to dramatic rock formations. This ancient land is home to five major oases that have sustained life for millennia, each with its unique character and attractions. The White Desert's chalk formations, the Black Desert's volcanic hills, and the crystal-clear springs of Siwa create an otherworldly experience that contrasts beautifully with Egypt's more famous Nile Valley.
+            </p>
+            
+            <div class="stats">
+                <h3 style="color: #64b5f6; margin-bottom: 20px;">Desert Statistics</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏜️</div>
+                        <h4>700,000 km²</h4>
+                        <p>Western Desert area</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌴</div>
+                        <h4>5 Major Oases</h4>
+                        <p>Life-sustaining springs</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌅</div>
+                        <h4>300+ Days</h4>
+                        <p>Sunshine annually</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⭐</div>
+                        <h4>Zero Light Pollution</h4>
+                        <p>Perfect stargazing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAJOR OASES -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Major Desert Oases</h2>
+            <div class="row">
+                
+                <!-- Siwa Oasis -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/Black-Desert-hills.jpg) center/cover'">
+                            <div class="badge">Famous</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Siwa Oasis</h3>
+                            <p class="card-description">
+                                Egypt's most remote oasis, famous for its unique Berber culture, salt lakes, and the Oracle Temple of Amun. Siwa offers pristine natural springs, traditional mud-brick architecture, and some of the most spectacular sunsets in Egypt.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏛️</div>
+                                    <h4>Oracle Temple</h4>
+                                    <p>Ancient prophecies</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌊</div>
+                                    <h4>Salt Lakes</h4>
+                                    <p>Therapeutic waters</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏺️</div>
+                                    <h4>Berber Culture</h4>
+                                    <p>Traditional lifestyle</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌅</div>
+                                    <h4>Sunset Views</h4>
+                                    <p>Spectacular displays</p>
+                                </div>
+                            </div>
+                            <a th:href="@{/deserts}" class="button">Explore Siwa</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bahariya & Farafra -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/Dakhla-oasis.jpg) center/cover'">
+                            <div class="badge">Adventure</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Bahariya & Farafra</h3>
+                            <p class="card-description">
+                                Twin oases known for their hot springs, golden dunes, and the famous Black Desert. These oases serve as gateways to desert adventures, offering camping, 4x4 safaris, and access to some of Egypt's most dramatic landscapes.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">♨️</div>
+                                    <h4>Hot Springs</h4>
+                                    <p>Natural spas</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏜️</div>
+                                    <h4>Black Desert</h4>
+                                    <p>Volcanic hills</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏕️</div>
+                                    <h4>Desert Camping</h4>
+                                    <p>Under the stars</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏍️</div>
+                                    <h4>4x4 Safaris</h4>
+                                    <p>Dune adventures</p>
+                                </div>
+                            </div>
+                            <a th:href="@{/deserts}" class="button">Discover Oases</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHITE DESERT -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">White Desert Wonders</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏜️ White Desert</h3>
+                            <p class="card-description">
+                                Surreal landscape of chalk rock formations sculpted by wind into fantastical shapes. The White Desert's mushroom-like formations, towering monoliths, and pristine white sand create an otherworldly environment perfect for photography and camping.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🗿</div>
+                                    <h4>Chalk Formations</h4>
+                                    <p>Natural sculptures</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">📸</div>
+                                    <h4>Photography</h4>
+                                    <p>Spectacular scenes</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏕️</div>
+                                    <h4>Camping</h4>
+                                    <p>Under the stars</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">⭐ Stargazing Paradise</h3>
+                            <p class="card-description">
+                                With zero light pollution, the White Desert offers some of the world's best stargazing opportunities. Witness the Milky Way, shooting stars, and constellations in crystal-clear desert skies during overnight camping experiences.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌌</div>
+                                    <h4>Milky Way</h4>
+                                    <p>Visible to naked eye</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">⭐</div>
+                                    <h4>Shooting Stars</h4>
+                                    <p>Frequent sightings</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🔭</div>
+                                    <h4>Astronomy Tours</h4>
+                                    <p>Expert guidance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏜️ Crystal Mountain</h3>
+                            <p class="card-description">
+                                Iconic quartz crystal formation rising from the desert floor. This natural wonder sparkles in sunlight and creates a magical focal point for desert expeditions and photography enthusiasts.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">💎</div>
+                                    <h4>Quartz Crystals</h4>
+                                    <p>Natural formations</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌅</div>
+                                    <h4>Sunset Magic</h4>
+                                    <p>Golden hour glow</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🥾</div>
+                                    <h4>Rock Climbing</h4>
+                                    <p>Adventure sports</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESERT ADVENTURES -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Desert Adventures</h2>
+            <div class="row">
+                
+                <!-- 4x4 Safaris -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2022_7_7_17_8_20_928.png) center/cover'">
+                            <div class="badge">Must Do</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">4x4 Desert Safaris</h3>
+                            <p class="card-description">
+                                Thrilling off-road adventures across golden sand dunes and rocky plateaus. Expert guides lead expeditions to remote areas, hidden valleys, and spectacular viewpoints. Multi-day camping adventures available for the ultimate desert experience.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏍️</div>
+                                    <h4>Off-Road</h4>
+                                    <p>Dune driving</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏜️</div>
+                                    <h4>Desert Navigation</h4>
+                                    <p>Expert guidance</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏕️</div>
+                                    <h4>Camping</h4>
+                                    <p>Under the stars</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">📸</div>
+                                    <h4>Wildlife</h4>
+                                    <p>Desert fauna</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sandboarding & Trekking -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2022_8_9_4_36_46_299.jpeg) center/cover'">
+                            <div class="badge">Adventure</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Sandboarding & Trekking</h3>
+                            <p class="card-description">
+                                Experience the thrill of sandboarding down massive dunes or embark on guided trekking expeditions through stunning desert landscapes. From gentle slopes for beginners to challenging dunes for experts, the desert offers endless adventure opportunities.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏄</div>
+                                    <h4>Sandboarding</h4>
+                                    <p>Desert surfing</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🥾</div>
+                                    <h4>Trekking</h4>
+                                    <p>Desert hiking</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌅</div>
+                                    <h4>Sunrise Tours</h4>
+                                    <p>Golden hour magic</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">📸</div>
+                                    <h4>Photo Tours</h4>
+                                    <p>Scenic landscapes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OASIS CULTURE -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Oasis Culture & Traditions</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2022_8_11_21_8_14_304.jpg) center/cover'">
+                            <div class="badge">Cultural</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Traditional Oasis Life</h3>
+                            <p class="card-description">
+                                Discover the unique cultures of desert communities, where ancient traditions blend with modern life. Visit traditional mud-brick villages, local markets, and experience the warm hospitality of desert dwellers who have maintained their way of life for centuries.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏺️</div>
+                                    <h4>Mud-Brick Architecture</h4>
+                                    <p>Traditional building</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🍽️</div>
+                                    <h4>Local Cuisine</h4>
+                                    <p>Desert specialties</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎵</div>
+                                    <h4>Folk Music</h4>
+                                    <p>Traditional performances</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🛍️</div>
+                                    <h4>Local Markets</h4>
+                                    <p>Oasis commerce</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2024_3_25_14_1_10_678.jpg) center/cover'">
+                            <div class="badge">Natural</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Natural Springs & Wellness</h3>
+                            <p class="card-description">
+                                Experience the healing properties of natural hot springs and crystal-clear desert pools. These oases offer therapeutic waters rich in minerals, perfect for relaxation and rejuvenation after desert adventures.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">♨️</div>
+                                    <h4>Hot Springs</h4>
+                                    <p>Therapeutic waters</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌊</div>
+                                    <h4>Crystal Pools</h4>
+                                    <p>Natural swimming</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌿</div>
+                                    <h4>Desert Gardens</h4>
+                                    <p>Oasis agriculture</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🧘</div>
+                                    <h4>Wellness</h4>
+                                    <p>Natural spa</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAVEL TIPS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Travel Tips</h2>
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">Best Time to Visit</h3>
+                <p><strong>October to April</strong> - Ideal temperatures (20-30°C), comfortable for camping, perfect for desert activities and stargazing.</p>
+                <p><strong>May to September</strong> - Very hot (35-45°C), challenging for extended outdoor activities. Early morning and evening activities recommended.</p>
+            </div>
+            
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">Desert Safety</h3>
+                <p><strong>Guides:</strong> Always travel with licensed desert guides who know the terrain and emergency procedures.</p>
+                <p><strong>Permits:</strong> Some areas require special permits, especially for overnight camping and off-road driving.</p>
+                <p><strong>Navigation:</strong> GPS coordinates essential, mobile coverage limited in remote areas.</p>
+                <p><strong>Emergency:</strong> Carry satellite phone or emergency beacon for extended expeditions.</p>
+            </div>
+            
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">What to Pack</h3>
+                <p><strong>Clothing:</strong> Light layers for day, warm jacket for cold nights, sun hat, UV protection sunglasses.</p>
+                <p><strong>Camping:</strong> Four-season tent, sleeping bag rated for desert temperatures, camping stove, water containers.</p>
+                <p><strong>Essentials:</strong> First aid kit, GPS device, satellite communication, water purification tablets.</p>
+                <p><strong>Comfort:</strong> Sunscreen (SPF 50+), lip balm, moisturizer, eye drops for dry conditions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Desert Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" th:style="'background:url(/images/2024_3_31_13_55_53_345.jpeg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>White Desert</h4>
+                        <p>Chalk formations</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/Bahariya-oasis.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Siwa Oasis</h4>
+                        <p>Berber culture</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/bc8ce9b5-d225-4327-b45f-5ef5eb7ebd86bc8ce9b5-d225-4327-b45f-5ef5eb7ebd86.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Desert Safari</h4>
+                        <p>4x4 adventures</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/2022_8_11_21_8_14_304.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Stargazing</h4>
+                        <p>Milky Way views</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED© 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

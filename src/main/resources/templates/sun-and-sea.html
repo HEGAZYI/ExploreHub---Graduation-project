@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sun & Sea — ExploreHub</title>
+    <meta name="description" content="Discover Egypt's Red Sea and Mediterranean coasts: beaches, diving, water sports, and seaside resorts." />
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <style>
+        .sunsea-hero {
+            background: linear-gradient(rgba(13,71,161,0.9), rgba(25,118,210,0.7)), url('/images/2022_8_5_2_3_57_98.jpg');
+            background-size: cover;
+            background-position: center;
+            color: rgb(124, 100, 100);
+            padding: 120px 0;
+            text-align: center;
+        }
+        .resort-card {
+            background: linear-gradient(145deg, #1e3a8a 0%, #2196f3 100%);
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+        .resort-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+        .resort-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .resort-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+        .resort-content {
+            padding: 30px;
+        }
+        .resort-title {
+            font-size: 1.8em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            border: 1px solid #64b5f6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.2);
+        }
+        .feature-item {
+            background: linear-gradient(145deg, #1e3a8a 0%, #42a5f5 100%);
+            border: 1px solid #64b5f6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.2);
+            color: rgb(129, 115, 115);
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #90caf9;
+            text-shadow: 0 2px 4px rgba(33,150,243,0.3);
+        }
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .activity-item {
+            background: rgb(128, 114, 114);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            color:blue;
+        }
+        .activity-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .activity-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+        .seasonal-info {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .resort-stats {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" alt="ExploreHub Logo"></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/cities}">Cities</a>
+            <a th:href="@{/red-sea}">Red Sea</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="sunsea-hero">
+    <div class="container">
+        <h1>Sun & Sea Paradise</h1>
+        <p class="lead">From crystal waters to golden beaches</p>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Egypt's Coastal Paradise</h2>
+        <p>Egypt's Red Sea and Mediterranean coasts offer some of world's most beautiful beach destinations. From the crystal-clear waters of the Red Sea to the golden beaches of the Mediterranean, Egypt's coastline provides endless opportunities for relaxation, water sports, and seaside enjoyment.</p>
+        
+        <div class="resort-stats">
+            <h3>Coastal Statistics</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🏖️</div>
+                    <h4>1,000+ km</h4>
+                    <p>Coastline</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌊</div>
+                    <h4>50+ Beaches</h4>
+                    <p>Beach destinations</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏖️</div>
+                    <h4>Marine Life</h4>
+                    <p>Rich biodiversity</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏨️</div>
+                    <h4>15+ Million Visitors</h4>
+                    <p>Year-round tourism</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Destinations -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Premier Coastal Destinations</h2>
+        <div class="row">
+            
+            <!-- Sharm El-Sheikh -->
+            <div class="col-md-6">
+                <div class="resort-card">
+                    <div class="resort-image" th:style="'background:url(/images/2022_8_7_14_31_18_3.jpg) center/cover'">
+                        <div class="resort-badge">Luxury Capital</div>
+                    </div>
+                    <div class="resort-content">
+                        <h3 class="resort-title">Sharm El-Sheikh</h3>
+                        <p>Egypt's premier resort destination, known for world-class diving, vibrant nightlife, and luxury accommodations. Nestled between desert mountains and crystal-clear waters.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🤿</div>
+                                <h4>World-Class Diving</h4>
+                                <p>20+ dive sites</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🌴</div>
+                                <h4>Crystal Waters</h4>
+                                <p>30m+ visibility</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hurghada -->
+            <div class="col-md-6">
+                <div class="resort-card">
+                    <div class="resort-image" th:style="'background:url(/images/2022_8_7_14_38_19_286.jpg) center/cover'">
+                        <div class="resort-badge">Family Friendly</div>
+                    </div>
+                    <div class="resort-content">
+                        <h3 class="resort-title">Hurghada</h3>
+                        <p>Egypt's original Red Sea resort town, offering beautiful beaches, excellent diving, and family-friendly atmosphere.</p>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <div class="feature-icon">🏊</div>
+                                <h4>Beautiful Beaches</h4>
+                                <p>Golden sand beaches</p>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">🤿</div>
+                                <h4>Water Sports</h4>
+                                <p>Windsurfing & kitesurfing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Activities -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Coastal Activities</h2>
+        <div class="activity-grid">
+            <div class="activity-item">
+                <div class="activity-icon">🤿</div>
+                <h4>Scuba Diving</h4>
+                <p>World-class dive sites</p>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">🏄</div>
+                <h4>Snorkeling</h4>
+                <p>Explore coral reefs</p>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">🏖️</div>
+                <h4>Beach Sports</h4>
+                <p>Volleyball, beach soccer</p>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">🚣</div>
+                <h4>Boat Trips</h4>
+                <p>Sunset cruises</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Practical Information -->
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">Coastal Travel Guide</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="resort-card">
+                    <div class="resort-content">
+                        <h3 class="resort-title">🕐 Best Time to Visit</h3>
+                        <p><strong>April to October:</strong> Perfect weather, warm waters.</p>
+                        <div class="seasonal-info">
+                            <strong>Pro Tip:</strong> Book accommodations in advance for better rates.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="resort-card">
+                    <div class="resort-content">
+                        <h3 class="resort-title">🎫️ Tickets & Passes</h3>
+                        <p><strong>Combo Deals:</strong> Save with multi-activity packages.</p>
+                        <div class="seasonal-info">
+                            <strong>Pro Tip:</strong> Check for special seasonal events.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+    <div class="container text-center">
+        <h2>Discover Egypt's Coastal Paradise</h2>
+        <p class="lead">From crystal waters to golden beaches</p>
+        <div class="nav__actions" style="justify-content: center; margin-top: 30px;">
+            <a th:href="@{/what-to-do}" class="button">Water Activities</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED © 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

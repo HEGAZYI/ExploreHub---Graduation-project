@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Med — ExploreHub</title>
+    <meta name="description" content="Mediterranean Egypt: Alexandria and North Coast beaches, citadel, corniche, museums." />
+    <link th:href="@{/assets/css/style.css}" rel="stylesheet" />
+    <style>
+        /* Dark Mode Theme */
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        .header {
+            background: #1a1a1a;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .nav__links a {
+            color: #b0b0b0;
+        }
+
+        .nav__links a:hover {
+            color: #64b5f6;
+        }
+
+        .hero {
+            background: url('/images/2022_7_21_18_58_1_933.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .section {
+            background: #1a1a1a;
+            border-top: 1px solid #2d2d2d;
+        }
+
+        .section__title {
+            color: #64b5f6;
+            text-shadow: 0 2px 4px rgba(100,181,246,0.3);
+        }
+
+        .card {
+            border: 1px solid #2196f3;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(33,150,243,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(33,150,243,0.4);
+            border-color: #64b5f6;
+        }
+
+        .card-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: rgb(104, 80, 80);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 4px 8px rgba(13,71,161,0.3);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            color: #4d4444;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(13,71,161,0.3);
+        }
+
+        .card-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            border: 1px solid #64b5f6;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #90caf9;
+            text-shadow: 0 2px 4px rgba(33,150,243,0.3);
+        }
+
+        .stats {
+            color: rgb(124, 94, 94);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(13,71,161,0.3);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            color: rgb(78, 66, 66);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .tips-box {
+            border-left: 4px solid #0d47a1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px rgba(13,71,161,0.2);
+        }
+
+        .footer {
+            background: #1a1a1a;
+            border-top: 1px solid #2d2d2d;
+            color: #b0b0b0;
+        }
+
+        .footer__legal {
+            color: #888;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: white;
+            border: 1px solid #1976d2;
+        }
+
+        .button:hover {
+            border-color: #2196f3;
+        }
+        
+        .highlight-text {
+            color: #64b5f6;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container nav">
+        <a th:href="@{/}" class="brand">
+            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" alt="ExploreHub Logo"></span>
+            <span>ExploreHub</span>
+        </a>
+        <nav class="nav__links">
+            <a th:href="@{/about}">About Egypt</a>
+            <a th:href="@{/where-to-go}">Where to Go</a>
+            <a th:href="@{/what-to-do}">What to Do</a>
+            <a th:href="@{/whats-on}">What's On</a>
+            <a th:href="@{/useful-info}">Useful Information</a>
+        </nav>
+        <div class="nav__actions">
+            <button class="button button--ghost menu-toggle">Menu</button>
+            <a class="button" th:href="@{/#newsletter}">Subscribe</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero__surface"></div>
+        <div class="container hero__content">
+            <div>
+                <span class="eyebrow">Region</span>
+                <h1>The Med</h1>
+                <p class="lead">
+                    Alexandria's storied corniche, coastal fortresses, and beach towns along Egypt's Mediterranean.
+                </p>
+            </div>
+            <div class="hero__media"
+                 role="img"
+                 aria-label="Alexandria coastline"
+                 th:style="'background:url(' + @{/images/citadel-wall.jpg} + ') center/cover no-repeat;'">
+            </div>
+        </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Egypt's Mediterranean Coast</h2>
+            <p style="color: #b0b0b0; line-height: 1.6; margin-bottom: 30px;">
+                Egypt's Mediterranean coast offers a unique blend of <span class="highlight-text">ancient history</span> and modern seaside charm. From the cosmopolitan port city of Alexandria with its Greco-Roman heritage to the exclusive beach resorts of the North Coast, this region provides a refreshing alternative to the desert landscapes. The Mediterranean climate, cultural diversity, and stunning coastline make it a perfect destination for history enthusiasts, beach lovers, and food connoisseurs.
+            </p>
+            
+            <div class="stats">
+                <h3 style="color: #64b5f6; margin-bottom: 20px;">Mediterranean Statistics</h3>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌊</div>
+                        <h4>500 km</h4>
+                        <p>Coastline length</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏛️</div>
+                        <h4>2,300+ Years</h4>
+                        <p>Alexandria's history</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏖️</div>
+                        <h4>50+ Beaches</h4>
+                        <p>Coastal destinations</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🍽️</div>
+                        <h4>Seafood Paradise</h4>
+                        <p>Fresh catches daily</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALEXANDRIA HIGHLIGHTS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Alexandria Highlights</h2>
+            <div class="row">
+                
+                <!-- Citadel & Museums -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/2024_3_31_13_59_38_362.jpg) center/cover'">
+                            <div class="badge">Historic</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Citadel & Museums</h3>
+                            <p class="card-description">
+                                Explore the magnificent Qaitbay Citadel, built on the site of the ancient Lighthouse of Alexandria. Visit world-class museums including the Greco-Roman Museum and the modern Bibliotheca Alexandrina, celebrating the city's intellectual heritage.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏰</div>
+                                    <h4>Qaitbay Citadel</h4>
+                                    <p>15th century fortress</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">📚</div>
+                                    <h4>Bibliotheca</h4>
+                                    <p>Modern library</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏺️</div>
+                                    <h4>Greco-Roman</h4>
+                                    <p>Ancient artifacts</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🗿</div>
+                                    <h4>Royal Jewelry</h4>
+                                    <p>Treasured collection</p>
+                                </div>
+                            </div>
+                            <a th:href="@{/med}" class="button">Explore Alexandria</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Corniche & Harbor -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/p.JPG) center/cover'">
+                            <div class="badge">Scenic</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Corniche & Harbor</h3>
+                            <p class="card-description">
+                                Stroll along the iconic Alexandria Corniche, a 15km waterfront promenade offering stunning sea views. Experience the vibrant Eastern Harbor with its fishing boats, yachts, and bustling seafood restaurants serving the freshest Mediterranean catches.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌅</div>
+                                    <h4>Sunset Views</h4>
+                                    <p>Golden hour magic</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">⛵</div>
+                                    <h4>Fishing Harbor</h4>
+                                    <p>Traditional boats</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🍽️</div>
+                                    <h4>Seafood</h4>
+                                    <p>Fresh catches</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">☕</div>
+                                    <h4>Cafes</h4>
+                                    <p>Harborfront dining</p>
+                                </div>
+                            </div>
+                            <a th:href="@{/med}" class="button">Discover Corniche</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NORTH COAST RESORTS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">North Coast Resorts</h2>
+            <div class="row">
+                
+                <!-- Marina & El Alamein -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏖️ Marina & El Alamein</h3>
+                            <p class="card-description">
+                                Exclusive resort destinations featuring pristine beaches, world-class golf courses, and luxury accommodations. Marina offers sophisticated nightlife while El Alamein provides historical significance with WWII memorials and museums.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏨</div>
+                                    <h4>Luxury Resorts</h4>
+                                    <p>5-star accommodations</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">⛳</div>
+                                    <h4>Golf Courses</h4>
+                                    <p>Championship greens</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏛️</div>
+                                    <h4>WWII History</h4>
+                                    <p>War memorials</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidi Abdel Rahman -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏖️ Sidi Abdel Rahman</h3>
+                            <p class="card-description">
+                                Ultra-luxurious beach resort destination known for its pristine white sand beaches and crystal-clear waters. Exclusive villas and private beaches cater to Egypt's elite seeking privacy and Mediterranean luxury.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏖️</div>
+                                    <h4>Private Beaches</h4>
+                                    <p>Exclusive access</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏡</div>
+                                    <h4>Luxury Villas</h4>
+                                    <p>Private residences</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🌊</div>
+                                    <h4>Crystal Waters</h4>
+                                    <p>Pristine beaches</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ras El Hekma -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">🏖️ Ras El Hekma</h3>
+                            <p class="card-description">
+                                Emerging luxury destination with stunning natural lagoons and protected bays. Modern resort developments offer world-class amenities while preserving the natural beauty of the Mediterranean coastline.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏞️</div>
+                                    <h4>Natural Lagoons</h4>
+                                    <p>Protected waters</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏖️</div>
+                                    <h4>Secluded Bays</h4>
+                                    <p>Hidden beaches</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🏨</div>
+                                    <h4>Modern Resorts</h4>
+                                    <p>Luxury amenities</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CULTURAL EXPERIENCES -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Cultural Experiences</h2>
+            <div class="row">
+                
+                <!-- Food & Dining -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/975af4f2e5da918b545c59c87f914b44_w750_h500.jpg) center/cover'">
+                            <div class="badge">Culinary</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Mediterranean Cuisine</h3>
+                            <p class="card-description">
+                                Savor the unique flavors of Mediterranean Egypt with fresh seafood, Greek-influenced dishes, and traditional Egyptian cuisine. Enjoy waterfront dining, local markets, and the famous Alexandrian seafood restaurants that have been serving generations.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🐟</div>
+                                    <h4>Fresh Seafood</h4>
+                                    <p>Daily catches</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🥙</div>
+                                    <h4>Greek Influence</h4>
+                                    <p>Mediterranean fusion</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🍽️</div>
+                                    <h4>Local Markets</h4>
+                                    <p>Fresh produce</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🍷</div>
+                                    <h4>Waterfront Dining</h4>
+                                    <p>Sea views</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Arts & Festivals -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-image" th:style="'background:url(/images/57a950388c5e7422fae059fd9631e3eb_o57a950388c5e7422fae059fd9631e3eb_o.jpg) center/cover'">
+                            <div class="badge">Cultural</div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Arts & Festivals</h3>
+                            <p class="card-description">
+                                Experience Alexandria's vibrant cultural scene with international film festivals, art exhibitions, and music performances. The city's cosmopolitan atmosphere creates a unique blend of Egyptian and Mediterranean cultural expressions.
+                            </p>
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎬</div>
+                                    <h4>Film Festivals</h4>
+                                    <p>International cinema</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎨</div>
+                                    <h4>Art Galleries</h4>
+                                    <p>Contemporary works</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎭</div>
+                                    <h4>Theater</h4>
+                                    <p>Live performances</p>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">🎵</div>
+                                    <h4>Music Scene</h4>
+                                    <p>Diverse genres</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAVEL TIPS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Travel Tips</h2>
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">Best Time to Visit</h3>
+                <p><strong>April to June & September to October</strong> - Ideal temperatures (20-28°C), pleasant sea breezes, perfect for beach activities and sightseeing.</p>
+                <p><strong>July to August</strong> - Warmest months (28-32°C), peak tourist season, vibrant atmosphere but crowded beaches.</p>
+                <p><strong>November to March</strong> - Cooler temperatures (15-20°C), occasional rain, fewer crowds, great for cultural activities.</p>
+            </div>
+            
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">Getting Around</h3>
+                <p><strong>Transportation:</strong> Alexandria has extensive public transport, taxis, and ride-hailing services. Many attractions are walkable in the city center.</p>
+                <p><strong>North Coast:</strong> Best accessed by private car or organized tours. Limited public transport to remote resort areas.</p>
+                <p><strong>Parking:</strong> Available but can be challenging in summer. Resort areas offer ample parking facilities.</p>
+            </div>
+            
+            <div class="tips-box">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">What to Pack</h3>
+                <p><strong>Beach Wear:</strong> Swimwear, cover-ups, sun hat, sunglasses, high-SPF sunscreen.</p>
+                <p><strong>Evening Wear:</strong> Light jacket or sweater for sea breezes, smart casual for dining.</p>
+                <p><strong>Sightseeing:</strong> Comfortable walking shoes, modest attire for religious sites, camera.</p>
+                <p><strong>Essentials:</strong> Reusable water bottle, power bank, first aid kit, insect repellent.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section__title">Mediterranean Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" th:style="'background:url(/images/2024_3_31_13_59_38_362.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Qaitbay Citadel</h4>
+                        <p>Historic fortress</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/p.JPG) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Alexandria Corniche</h4>
+                        <p>Waterfront promenade</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/2022_8_7_14_34_27_230.jpg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>Mediterranean Cuisine</h4>
+                        <p>Fresh seafood dining</p>
+                    </div>
+                </div>
+                <div class="gallery-item" th:style="'background:url(/images/2022_7_21_18_58_1_933.jpeg) center/cover'">
+                    <div class="gallery-overlay">
+                        <h4>North Coast</h4>
+                        <p>Pristine beaches</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer__legal">
+        <div>ALL RIGHTS RESERVED© 2025</div>
+    </div>
+</footer>
+
+<script th:src="@{/assets/js/main.js}"></script>
+</body>
+</html>

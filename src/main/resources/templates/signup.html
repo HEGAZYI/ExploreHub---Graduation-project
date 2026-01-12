@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" th:href="@{/assets/css/loginStyle.css}">
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-card">
+
+        <!-- LEFT SIDE -->
+        <div class="auth-image">
+            <img th:src="@{/images/61eac378-f8a3-47a4-b980-128801a4b3b661eac378-f8a3-47a4-b980-128801a4b3b6.jpg}" alt="Signup">
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="auth-form">
+            <h2>Save Your Account Now</h2>
+
+            <form th:action="@{/saveUser}" th:object="${user}" method="post">
+                <div class="input-group">
+                    <input type="text" id="username" th:field="*{username}" placeholder="Enter your username"
+                           th:classappend="${#fields.hasErrors('username')} ? 'field-error' : ''" />
+                    <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" id="email" th:field="*{email}" placeholder="example@mail.com"
+                           th:classappend="${#fields.hasErrors('email')} ? 'field-error' : ''" />
+                    <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" th:field="*{password}" placeholder="Enter your password"
+                           th:classappend="${#fields.hasErrors('password')} ? 'field-error' : ''" />
+                    <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                </div>
+
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+
+            <p class="switch">
+                Already have an account?
+                <a th:href="@{/login}">Login</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
