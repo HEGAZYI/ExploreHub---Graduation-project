@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Useful Information</title>
+    <title>Siwa Oasis — Deserts & Oases</title>
+    <meta name="description" content="Siwa Oasis: salt lakes, Oracle of Amun, eco-lodges, and Berber culture in Egypt's Western Desert." />
+
+    <!-- Use Thymeleaf for asset resolution -->
     <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
 </head>
 <body>
-<!-- Header -->
 <header class="header">
     <div class="container nav">
+        <!-- Dynamic links with Thymeleaf -->
         <a th:href="@{/}" class="brand">
-            <span class="brand__logo"><img th:src="@{/images/website_main_logo.png}" ></span>
+            <span class="brand__logo"></span>
             <span>ExploreHub</span>
         </a>
         <nav class="nav__links">
-            <a th:href="@{/about}">About Egypt</a>
-            <a th:href="@{/where-to-go}">Where to Go</a>
-            <a th:href="@{/what-to-do}">What to Do</a>
-            <a th:href="@{/whats-on}">What's On</a>
-            <a class="active" th:href="@{/useful-info}">Useful Information</a>
+            <a th:href="@{/deserts}">Back to Deserts &amp; Oases</a>
         </nav>
         <div class="nav__actions">
             <button class="button button--ghost menu-toggle">Menu</button>
@@ -28,69 +27,51 @@
     </div>
 </header>
 
-<!-- Main -->
-<main>
-    <section class="section">
-        <div class="container">
-            <h1>Useful Information</h1>
-            <p class="lead">
-                Plan your trip with entry requirements, health and safety tips, transport, and more.
-            </p>
-            <div class="grid grid--cards">
-                <article class="card">
-                    <div class="card__body">
-                        <h3 class="card__title">Entry Visa</h3>
-                        <div class="card__meta">Check eligibility, visa-on-arrival, and e-visa options.</div>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card__body">
-                        <h3 class="card__title">Plan Your Trip</h3>
-                        <div class="card__meta">Best seasons, itinerary ideas, budget tips.</div>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card__body">
-                        <h3 class="card__title">Practical Info</h3>
-                        <div class="card__meta">Currency, connectivity, tipping, local customs.</div>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card__body">
-                        <h3 class="card__title">Travel Safe</h3>
-                        <div class="card__meta">Health precautions, travel insurance, emergency numbers.</div>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card__body">
-                        <h3 class="card__title">Getting Around</h3>
-                        <div class="card__meta">Domestic flights, trains, ride-hailing, ferries.</div>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card__body">
-                        <h3 class="card__title">How to Get There</h3>
-                        <div class="card__meta">International flights and cruise entry points.</div>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card__body">
-                        <h3 class="card__title">Useful Numbers</h3>
-                        <div class="card__meta">Tourist police 126, general emergency 122, ambulance 123.</div>
-                    </div>
-                </article>
-            </div>
+<!-- Siwa Oasis -->
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-image" th:style="'background:url(/images/Black-Desert-hills.jpg) center/cover'">
+            <div class="badge">Famous</div>
         </div>
-    </section>
-</main>
+        <div class="card-content">
+            <h3 class="card-title">Siwa Oasis</h3>
+            <p class="card-description">
+                Egypt's most remote oasis, famous for its unique Berber culture, salt lakes, and the Oracle Temple of Amun. Siwa offers pristine natural springs, traditional mud-brick architecture, and some of the most spectacular sunsets in Egypt.
+            </p>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🏛️</div>
+                    <h4>Oracle Temple</h4>
+                    <p>Ancient prophecies</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌊</div>
+                    <h4>Salt Lakes</h4>
+                    <p>Therapeutic waters</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🏺️</div>
+                    <h4>Berber Culture</h4>
+                    <p>Traditional lifestyle</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌅</div>
+                    <h4>Sunset Views</h4>
+                    <p>Spectacular displays</p>
+                </div>
+            </div>
+            <a th:href="@{/deserts}" class="button">Explore Siwa</a>
+        </div>
+    </div>
+</div>
 
-<!-- Footer -->
 <footer class="footer">
     <div class="container footer__legal">
         <div>ALL RIGHTS RESERVED© 2025</div>
     </div>
 </footer>
 
+<!-- Thymeleaf script path -->
 <script th:src="@{/assets/js/main.js}"></script>
 </body>
 </html>
